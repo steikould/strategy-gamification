@@ -1,0 +1,82 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #000020; /* Dark blue/purple - common retro game background */
+    color: #FFFFFF; /* White text */
+    overflow-x: hidden; /* Prevent horizontal scrollbar issues */
+}
+
+/* General retro button/panel styling - can be applied with Tailwind too but good for base */
+.retro-panel {
+    border: 4px solid #FFFFFF;
+    border-radius: 8px; /* Rounded corners */
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #202040; /* Slightly lighter than body for contrast */
+    box-shadow: 4px 4px 0px #505070; /* Simple pixelated shadow */
+}
+
+.retro-button {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #FFD700; /* Gold - common retro accent */
+    color: #000000; /* Black text on button */
+    padding: 0.5rem 1rem;
+    border: 2px solid #000000;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0px #806000; /* Darker gold shadow */
+}
+
+.retro-button:hover {
+    background-color: #FFA500; /* Orange on hover */
+}
+
+.retro-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+/* Styling for lines/connections - very basic, might need SVG for better ones */
+.connection-line {
+    border-left: 2px dashed #FFFFFF;
+    height: 20px; /* Adjust as needed */
+    margin-left: 20px; /* Indent to appear connected to parent */
+}
+
+/* Specific text colors if needed */
+.text-green-pixel {
+    color: #32CD32; /* Lime Green */
+}
+.text-pink-pixel {
+    color: #FF69B4; /* Hot Pink */
+}
+.text-cyan-pixel {
+    color: #00FFFF; /* Cyan */
+}
+
+/* Ensure Tailwind's Press Start 2P is applied if not directly on body */
+[class*="font-press-start"] {
+    font-family: 'Press Start 2P', cursive !important;
+}
+
+/* Custom scrollbar for a more retro feel (optional, browser support varies) */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #000020;
+    border: 2px solid #FFFFFF;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: #FFD700;
+    border: 2px solid #000000;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #FFA500;
+}
+::-webkit-scrollbar-corner {
+    background: #000020;
+}
