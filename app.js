@@ -365,7 +365,7 @@ const projectTasks = [
             software_components: ['Redis', 'Feast', 'Google Cloud Memorystore', 'Google Kubernetes Engine (GKE)', 'BigQuery', 'Google Cloud Dataflow']
         }
     }
-]; // Correct closing of projectTasks array
+]
 
 
 // Application State
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Current Page:", currentPage);
     console.log("Selected Task:", selectedTask);
     console.log("Expanded Phases:", expandedPhases);
-});
+})
 
 // Main Rendering Function
 function renderApp() {
@@ -620,11 +620,11 @@ function renderTaskDetailView(container, taskId) {
         currentPage = 'map';
         renderApp();
     });
+
     detailWrapper.appendChild(backButton);
 
     container.appendChild(detailWrapper);
 }
-
 
 // Helper function to find a task by ID (will be used by rendering functions)
 function getTaskById(taskId) {
