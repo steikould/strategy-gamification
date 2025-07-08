@@ -188,7 +188,7 @@ const projectTasks = [
         'Integrate optimized plans with dispatch systems.'
       ],
       budgeted_hours: 450,
-      cost: '$180K - '$350K',
+      cost: "$180K - $350K",
       software_components: ['Vertex AI (Training, Endpoints)', 'Cloud Run', 'BigQuery', 'Python ML Libraries (Optimization, Routing)']
     }
   },
