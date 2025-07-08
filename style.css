@@ -1,102 +1,287 @@
 :root {
-    /* Colors extracted from the provided 80's image */
+    --font-retro: 'Press Start 2P', cursive;
+
+    /* 80s Bit-Gaming Palette */
     --color-teal: #2BAF90;
-    --color-light-green: #A1D4B1;
+    --color-light-green: #A1D4B1; /* Not explicitly used yet, but defined */
     --color-gold: #F1A512;
     --color-orange: #DD4111;
     --color-burgundy: #8C0027;
 
-    /* Common 80s bit-gaming palette additions */
-    --color-dark-blue-bg: #000033; /* Deeper, more saturated dark blue for background */
-    --color-bright-pink: #FF00FF; /* Classic 80s neon pink */
-    --color-electric-blue: #00FFFF; /* Classic 80s neon cyan */
-    --color-dark-shadow: #1A1A1A; /* For deeper shadows and outlines */
-    --color-light-grey: #DEDEDE; /* For lighter accents */
+    --color-neon-pink: #FF00FF;
+    --color-electric-blue: #00FFFF;
+
+    --bg-dark-blue: #0A0A3A;
+    --bg-panel-dark-blue: #1A1A4A;
+
+    --text-light-grey: #DEDEDE;
+    --text-dark-grey: #1A1A1A;
+    --text-black: #000000;
+    --text-white: #FFFFFF;
+
+    /* Standardized values */
+    --border-thick: 4px;
+    --border-medium: 2px;
+    --corner-radius-sharp: 0px; /* For true 8-bit */
+    --corner-radius-slight: 4px; /* For a slightly softer 8-bit look */
 }
 
 body {
-    font-family: 'Press Start 2P', cursive !important;
-    background-color: var(--color-dark-blue-bg) !important; /* Ensuring dark blue background */
-    color: var(--color-light-grey) !important; /* Ensuring light grey text */
+    font-family: var(--font-retro);
+    background-color: var(--bg-dark-blue);
+    color: var(--text-light-grey); /* Default text color */
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
+    image-rendering: pixelated; /* Apply to whole body for sharper edges on scaled content */
 }
 
+/* General text selection styling for the theme */
+::selection {
+    background-color: var(--color-gold);
+    color: var(--text-black);
+}
+::-moz-selection { /* Code for Firefox */
+    background-color: var(--color-gold);
+    color: var(--text-black);
+}
+
+/* Headings will be styled more specifically later, but a general reset */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-retro);
+    /* image-rendering: -webkit-optimize-contrast; /* Might help font rendering */
+    /* image-rendering: crisp-edges; */
+}
+
+/* Custom scrollbar for a more retro feel (optional, browser support varies) */
+::-webkit-scrollbar {
+    width: 16px; /* Wider for a chunkier feel */
+    height: 16px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark-blue);
+    border: var(--border-medium) solid var(--color-burgundy);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-orange);
+    border: var(--border-medium) solid var(--color-gold);
+    border-radius: var(--corner-radius-sharp);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold);
+}
+::-webkit-scrollbar-corner {
+    background: var(--bg-dark-blue);
+}
+
+/* Base panel and button styles will be defined in the next steps */
 .retro-panel {
-    border: 3px solid var(--color-gold) !important;
-    border-radius: 4px !important;
-    padding: 1rem !important;
-    margin-bottom: 1rem !important;
-    background-color: var(--color-dark-blue-bg) !important; /* Ensuring dark blue panel background */
-    box-shadow: 4px 4px 0px var(--color-orange) !important;
-    outline: 2px solid var(--color-burgundy) !important;
-    outline-offset: -5px !important;
+    background-color: var(--bg-panel-dark-blue);
+    border: var(--border-thick) solid var(--color-gold);
+    border-radius: var(--corner-radius-slight); /* Sharp or slight 8-bit curve */
+    padding: 1rem;
+    margin-bottom: 1rem; /* Or handle with Tailwind gap */
+    box-shadow: 6px 6px 0px var(--color-burgundy);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; /* Added transition */
+}
+
+/* Optional: Add a hover effect for main panels if desired, e.g., lift or change shadow */
+/*
+.retro-panel:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px var(--color-burgundy);
+}
+*/
+
+/* Styling for Headings within panels (e.g., Phase names) */
+.retro-panel-heading {
+    font-family: var(--font-retro);
+    color: var(--color-neon-pink); /* As per new theme */
+    margin-bottom: 0.75rem; /* Tailwind's mb-3 */
+    font-size: 1.25rem; /* Tailwind's text-xl */
+    font-weight: bold; /* Ensure it's bold */
+    text-shadow: 1px 1px 0px var(--color-burgundy), 2px 2px 0px var(--color-burgundy); /* Simple neon glow/shadow */
+}
+
+/* Styling for Body Text within panels */
+.retro-panel-body-text {
+    font-family: var(--font-retro); /* Ensure retro font for consistency */
+    color: var(--text-light-grey);
+    font-size: 0.875rem; /* Tailwind's text-sm */
+    line-height: 1.4;
+}
+
+.retro-sub-task-panel {
+    background-color: var(--color-teal);
+    border: var(--border-medium) solid var(--color-burgundy); /* Medium border */
+    border-radius: var(--corner-radius-slight);
+    padding: 0.75rem; /* Tailwind p-3 */
+    margin-bottom: 0.5rem; /* Tailwind mb-2 */
+    box-shadow: 3px 3px 0px var(--color-orange); /* Smaller shadow with different color */
+}
+
+.retro-sub-task-heading {
+    font-family: var(--font-retro);
+    color: var(--text-black); /* Dark text on teal background */
+    font-size: 1rem; /* Tailwind text-base or md */
+    font-weight: bold;
+    margin-bottom: 0.25rem; /* Smaller margin for sub-task headings */
 }
 
 .retro-button {
-    font-family: 'Press Start 2P', cursive !important;
-    background-color: var(--color-gold) !important;
-    color: var(--color-dark-shadow) !important;
-    padding: 0.6rem 1.2rem !important;
-    border: 3px solid var(--color-burgundy) !important;
-    border-radius: 4px !important;
-    cursor: pointer !important;
-    text-transform: uppercase !important;
-    box-shadow: 3px 3px 0px var(--color-orange) !important;
-    transition: all 0.05s ease-out !important;
-    letter-spacing: 1px !important;
-}
-
-.retro-button:hover {
-    background-color: var(--color-orange) !important;
-    color: var(--color-light-grey) !important;
-    box-shadow: 3px 3px 0px var(--color-burgundy) !important;
+    font-family: var(--font-retro);
+    border-radius: var(--corner-radius-slight);
+    padding: 0.5rem 1rem; /* Default padding */
+    text-transform: uppercase;
+    cursor: pointer;
+    border-style: solid;
+    border-width: var(--border-medium); /* Default border width */
+    /* Default shadow for buttons */
+    box-shadow: 3px 3px 0px var(--text-dark-grey); /* A generic dark shadow */
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    image-rendering: pixelated; /* Ensure text on button is sharp */
 }
 
 .retro-button:active {
-    transform: translate(3px, 3px) !important;
-    box-shadow: none !important;
+    transform: translate(3px, 3px);
+    box-shadow: none;
 }
 
-.connection-line {
-    border-left: 2px solid var(--color-bright-pink) !important;
-    height: 20px !important;
-    margin-left: 15px !important;
-    position: relative !important;
-    background-image: linear-gradient(to bottom, var(--color-bright-pink) 2px, transparent 2px) !important;
-    background-size: 100% 8px !important;
+/* "Details" button specific style */
+.retro-button-details {
+    background-color: var(--color-orange);
+    color: var(--text-white);
+    border-color: var(--text-black); /* Black border for orange button */
+}
+.retro-button-details:hover {
+    background-color: var(--color-gold);
+    color: var(--text-black); /* Gold hover with black text */
+    border-color: var(--text-black);
 }
 
-.text-teal-pixel {
-    color: var(--color-teal) !important;
+/* General purpose primary action button (e.g. "Start Quest") */
+.retro-button-primary {
+    background-color: var(--color-gold);
+    color: var(--text-black);
+    border-color: var(--text-black);
 }
-.text-orange-pixel {
-    color: var(--color-orange) !important;
-}
-.text-electric-blue-pixel {
-    color: var(--color-electric-blue) !important;
-}
-.text-bright-pink-pixel {
-    color: var(--color-bright-pink) !important;
+.retro-button-primary:hover {
+    background-color: var(--color-orange);
+    color: var(--text-white);
+    border-color: var(--text-black);
 }
 
-/* Ensure Tailwind's Press Start 2P is applied */
-/* (Keeping this, though !important is now on body font) */
-.font-press-start {
-    font-family: 'Press Start 2P', cursive !important;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
+/* General purpose secondary/close button (e.g. "Close", "Back to Map") */
+.retro-button-secondary {
+    background-color: var(--color-teal); /* Teal like sub-panels */
+    color: var(--text-black);
+    border-color: var(--color-burgundy);
+}
+.retro-button-secondary:hover {
+    background-color: var(--color-light-green); /* Lighter green for hover */
+    color: var(--text-black);
+    border-color: var(--color-burgundy);
+}
+
+.retro-intermediate-panel {
+    background-color: var(--bg-panel-dark-blue);
+    border-top: var(--border-thick) solid var(--color-gold); /* Only top border like an old console popup */
+    color: var(--text-light-grey); /* Default text color for panel */
+    box-shadow: 0px -6px 0px var(--color-burgundy); /* Shadow on top, similar style to other panels */
+}
+
+.retro-intermediate-panel-heading {
+    font-family: var(--font-retro);
+    color: var(--color-electric-blue); /* Electric blue for this panel's heading */
+    font-size: 1.5rem; /* Tailwind text-2xl */
+    margin-bottom: 0.75rem; /* Tailwind mb-3 */
+    text-shadow: 1px 1px 0px var(--color-burgundy), 2px 2px 0px var(--color-burgundy);
+}
+
+.retro-intermediate-panel-body-text {
+    font-family: var(--font-retro);
+    color: var(--text-light-grey);
+    font-size: 0.875rem; /* Tailwind text-sm */
+    line-height: 1.4;
+    margin-bottom: 1rem; /* Tailwind mb-4 */
+}
+
+/* Full Detail Page Specific Styles */
+.retro-page-title { /* For the main H1 title on detail page */
+    font-family: var(--font-retro);
+    color: var(--color-gold); /* Gold for main page titles */
+    font-size: 2rem; /* Tailwind's text-3xl or 4xl equivalent */
+    margin-bottom: 1.5rem; /* Tailwind's mb-6 */
+    text-align: center;
+    text-shadow: 2px 2px 0px var(--color-orange), 3px 3px 0px var(--color-burgundy);
+}
+
+.retro-detail-section-heading { /* For H2 section titles within detail page */
+    font-family: var(--font-retro);
+    color: var(--color-electric-blue); /* Electric blue for section heads */
+    font-size: 1.5rem; /* Tailwind's text-2xl */
+    margin-bottom: 0.5rem; /* Tailwind's mb-2 */
+    text-shadow: 1px 1px 0px var(--color-burgundy);
+}
+
+.retro-detail-body-text,
+.retro-detail-list {
+    font-family: var(--font-retro);
+    color: var(--text-light-grey);
+    font-size: 1rem; /* Tailwind's text-base for more readability on detail page */
+    line-height: 1.5;
+    margin-bottom: 0.75rem; /* mb-3 */
+}
+.retro-detail-list ul, .retro-detail-list ol {
+    padding-left: 1.5rem; /* Indent lists */
+}
+.retro-detail-list li {
+    margin-bottom: 0.25rem; /* Space between list items */
+}
+
+/* Styling for <dl> <dt> <dd> elements if used */
+.retro-detail-list dt {
+    font-weight: bold; /* Handled by Tailwind font-semibold before */
+    color: var(--color-teal); /* Teal for definition terms */
+}
+.retro-detail-list dd {
+    margin-left: 1rem; /* Indent definition descriptions */
+    margin-bottom: 0.25rem;
+}
+
+.retro-connection-line {
+    border-left-width: 2px; /* Tailwind's border-l-2 */
+    border-left-style: dashed; /* Tailwind's border-dashed */
+    border-left-color: var(--color-neon-pink); /* New neon pink color */
+    /* Margin and padding will still be handled by Tailwind utility classes on the element */
+}
+
+.retro-main-map-title {
+    font-family: var(--font-retro);
+    color: var(--color-gold);
+    font-size: 2.5rem; /* Larger for main map title */
+    text-align: center;
+    margin-top: 2rem; /* Tailwind my-8 equivalent */
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em; /* Tailwind tracking-wider */
+    text-shadow: 2px 2px 0px var(--color-orange), 4px 4px 0px var(--color-burgundy);
+}
+
+.retro-text-error {
+    font-family: var(--font-retro);
+    color: var(--color-orange); /* Orange for errors */
+    text-align: center;
+    padding: 2.5rem; /* Tailwind p-10 */
+    font-size: 1.25rem; /* text-xl */
+    text-shadow: 1px 1px 0px var(--text-black);
+}
+
+/* Utility class for pixelated font rendering if needed on specific elements */
+.font-pixelated {
+    font-family: var(--font-retro);
+    /* Disabling text smoothing - browser support is inconsistent */
+    -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed; /* or optimizeLegibility, geometricPrecision */
+    image-rendering: pixelated; /* More general for images but can affect text */
 }
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-    width: 10px !important;
-    height: 10px !important;
-}
-::-webkit-scrollbar-track {
-    background: var(--color-dark-blue-bg) !important;
-    border: 1px solid var(--color-burgundy) !important;
-    border-radius: 2px !important;
-}
-::-webkit-scrollbar-thumb {
-    background: var(--color
