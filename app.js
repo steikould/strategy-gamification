@@ -1,5 +1,5 @@
 const projectTasks = [
-    // Your projectTasks array (no changes needed here)
+    // High-Level Phases (Root Nodes)
     {
         id: 'phase1_foundation',
         name: 'Phase 1: Foundation',
@@ -372,12 +372,8 @@ let expandedPhases = {}; // Tracks expanded state of root phases, e.g., { phase1
 
 // DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
-    // Initial render
-    // IMPORTANT: Remove the placeholder HTML that overwrites renderApp()
-    // const rootDiv = document.getElementById('root');
-    // if (rootDiv) {
-    //     rootDiv.innerHTML = '<h1 class="text-2xl text-center text-yellow-400">Welcome to Project Quest!</h1><p class="text-center text-gray-300">Loading map...</p>';
-    // }
+    // IMPORTANT: Ensure no placeholder HTML remains in your actual HTML for the #root div.
+    // The renderApp() function is now solely responsible for rendering.
 
     renderApp(); // Call renderApp to display the initial view
     console.log("App initialized. Project data loaded. State variables set.");
@@ -391,7 +387,7 @@ function renderApp() {
     const rootDiv = document.getElementById('root');
     if (!rootDiv) {
         console.error('Root element not found! Make sure an element with id="root" exists in your HTML.');
-        return;
+        return; // Stop execution if root element is missing
     }
     rootDiv.innerHTML = ''; // Clear previous content
 
@@ -403,7 +399,6 @@ function renderApp() {
             break;
         default:
             // This case handles task detail pages
-            // Ensure currentPage is indeed a task ID here, otherwise it might fail
             const taskExists = projectTasks.some(task => task.id === currentPage);
             if (taskExists) {
                 renderTaskDetailView(rootDiv, currentPage);
@@ -417,7 +412,7 @@ function renderApp() {
 }
 
 function renderMapView(container) {
-    container.innerHTML = ''; // Clear container
+    container.innerHTML = ''; // Clear container for the map view
 
     const mapTitle = document.createElement('h1');
     mapTitle.textContent = 'PROJECT QUEST MAP';
@@ -430,17 +425,20 @@ function renderMapView(container) {
 
     const mapLevelNodes = projectTasks.filter(task => task.type === 'phase' || task.type === 'strategy');
 
+    // Add a log to see if mapLevelNodes is correctly populated
+    console.log("Map Level Nodes (phases/strategies) found:", mapLevelNodes);
+
+
     mapLevelNodes.forEach(mapNode => {
         const phaseElement = document.createElement('div');
-        // IMPORTANT: Fix for 'phase' undefined in click event
-        // Change 'phase.id' to 'mapNode.id'
         phaseElement.className = 'retro-panel p-4 cursor-pointer transition-shadow duration-300';
         phaseElement.addEventListener('click', (e) => {
+            // Prevent click from bubbling if it's on a sub-task button inside
             if (e.target.closest('.sub-task-action-button')) return;
 
-            // Corrected variable name from 'phase' to 'mapNode'
+            // FIX: Corrected variable name from 'phase' to 'mapNode'
             expandedPhases[mapNode.id] = !expandedPhases[mapNode.id];
-            renderApp();
+            renderApp(); // Re-render the whole app to reflect changes
         });
 
         const phaseHeader = document.createElement('h2');
@@ -456,13 +454,14 @@ function renderMapView(container) {
 
         // Render sub_task children if expanded
         if (expandedPhases[mapNode.id]) { // Use mapNode.id
-            const allChildren = getChildrenTasks(mapNode.id);
-            const subTaskChildren = allChildren.filter(child => child.type === 'sub_task');
+            const allChildren = getChildrenTasks(mapNode.id); // Get all children first
+            const subTaskChildren = allChildren.filter(child => child.type === 'sub_task'); // Filter for sub_tasks
 
             if (subTaskChildren.length > 0) {
                 const childrenContainer = document.createElement('div');
+                // Apply new CSS class for connection line, keep Tailwind for margin/padding. Remove old border color.
                 childrenContainer.className = 'retro-connection-line ml-4 mt-3 pl-4';
-                subTaskChildren.forEach(subTask => {
+                subTaskChildren.forEach(subTask => { // Iterate over subTaskChildren
                     const subTaskElement = document.createElement('div');
                     subTaskElement.className = 'retro-sub-task-panel p-3 mb-2';
 
@@ -475,9 +474,9 @@ function renderMapView(container) {
                     viewDetailsButton.textContent = 'Details';
                     viewDetailsButton.className = 'sub-task-action-button retro-button retro-button-details text-xs mt-2 py-1 px-2';
                     viewDetailsButton.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                        e.stopPropagation(); // Prevent phase click
                         selectedTask = subTask.id;
-                        renderApp();
+                        renderApp(); // Re-render to show intermediate details
                     });
                     subTaskElement.appendChild(viewDetailsButton);
                     childrenContainer.appendChild(subTaskElement);
@@ -485,7 +484,7 @@ function renderMapView(container) {
                 phaseElement.appendChild(childrenContainer);
             }
         }
-        mapGrid.appendChild(phaseElement);
+        mapGrid.appendChild(phaseElement); // Append the phase element to the map grid
     });
 
     // Render Intermediate Detail Panel if a subTask is selected
@@ -493,6 +492,7 @@ function renderMapView(container) {
         const task = getTaskById(selectedTask);
         if (task) {
             const detailPanel = document.createElement('div');
+            // Keep Tailwind for positioning, sizing, z-index, overflow. Remove Tailwind shadow.
             detailPanel.className = 'retro-intermediate-panel fixed bottom-0 left-0 right-0 p-6 z-50 max-h-[40vh] overflow-y-auto';
 
             const panelHeader = document.createElement('h3');
@@ -502,47 +502,46 @@ function renderMapView(container) {
 
             const panelDescription = document.createElement('p');
             panelDescription.className = 'retro-intermediate-panel-body-text';
-            panelDescription.textContent = task.description;
+            panelDescription.textContent = task.description; // Main description for intermediate
             detailPanel.appendChild(panelDescription);
 
             const fullDetailsButton = document.createElement('button');
-            fullDetailsButton.textContent = 'Start Quest';
-            fullDetailsButton.className = 'retro-button retro-button-primary mr-2';
+            fullDetailsButton.textContent = 'Start Quest'; // Shortened text
+            fullDetailsButton.className = 'retro-button retro-button-primary mr-2'; // Apply primary button style
             fullDetailsButton.addEventListener('click', () => {
-                currentPage = task.id;
-                selectedTask = null;
+                currentPage = task.id; // Navigate to full detail page
+                selectedTask = null; // Clear selection
                 renderApp();
             });
             detailPanel.appendChild(fullDetailsButton);
 
             const closeButton = document.createElement('button');
             closeButton.textContent = 'Close';
-            closeButton.className = 'retro-button retro-button-secondary';
+            closeButton.className = 'retro-button retro-button-secondary'; // Apply secondary button style
             closeButton.addEventListener('click', () => {
-                selectedTask = null;
+                selectedTask = null; // Clear selection
                 renderApp();
             });
             detailPanel.appendChild(closeButton);
 
-            // Append to body, not container, for fixed positioning
-            document.body.appendChild(detailPanel);
+            document.body.appendChild(detailPanel); // Append to body, not container, for fixed positioning
         }
     }
 }
 
 function renderTaskDetailView(container, taskId) {
-    container.innerHTML = '';
+    container.innerHTML = ''; // Clear container
     const task = getTaskById(taskId);
 
     if (!task || !task.details_page_content) {
         const errorParagraph = document.createElement('p');
-        errorParagraph.className = 'retro-text-error';
+        errorParagraph.className = 'retro-text-error'; // Apply new error text class
         errorParagraph.textContent = 'Error: Quest data not found!';
         container.appendChild(errorParagraph);
 
         const backButtonError = document.createElement('button');
         backButtonError.textContent = 'Back to Map';
-        backButtonError.className = 'retro-button retro-button-secondary block mx-auto mt-4';
+        backButtonError.className = 'retro-button retro-button-secondary block mx-auto mt-4'; // Apply secondary style
         backButtonError.addEventListener('click', () => {
             currentPage = 'map';
             renderApp();
@@ -561,11 +560,12 @@ function renderTaskDetailView(container, taskId) {
     taskTitle.textContent = `QUEST: ${task.name}`;
     detailWrapper.appendChild(taskTitle);
 
+    // Function to create a section with a title and content
     function createDetailSection(title, content) {
         if (!content && content !== 0) return null; // Handle 0 as valid content
 
         const sectionDiv = document.createElement('div');
-        sectionDiv.className = 'mb-6';
+        sectionDiv.className = 'mb-6'; // Keep margin bottom for section spacing
 
         const sectionTitle = document.createElement('h2');
         sectionTitle.className = 'retro-detail-section-heading mb-2';
@@ -573,10 +573,10 @@ function renderTaskDetailView(container, taskId) {
         sectionDiv.appendChild(sectionTitle);
 
         if (Array.isArray(content)) {
-            const listContainer = document.createElement('div');
-            listContainer.className = 'retro-detail-list';
+            const listContainer = document.createElement('div'); // Wrapper for list styling
+            listContainer.className = 'retro-detail-list'; // Apply list container class
             const ul = document.createElement('ul');
-            ul.className = 'list-disc list-inside pl-4';
+            ul.className = 'list-disc list-inside pl-4'; // Keep Tailwind list styling for bullets
             content.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item;
@@ -585,8 +585,8 @@ function renderTaskDetailView(container, taskId) {
             listContainer.appendChild(ul);
             sectionDiv.appendChild(listContainer);
         } else if (typeof content === 'object' && content !== null) {
-            const dlContainer = document.createElement('div');
-            dlContainer.className = 'retro-detail-list';
+            const dlContainer = document.createElement('div'); // Wrapper for dl styling
+            dlContainer.className = 'retro-detail-list'; // Apply list container class for dt/dd
             const dl = document.createElement('dl');
             for (const key in content) {
                 const dt = document.createElement('dt');
@@ -612,7 +612,7 @@ function renderTaskDetailView(container, taskId) {
     const sections = [
         { title: 'Implementation Details', content: details.implementation_details },
         { title: 'Key Steps / Objectives', content: details.steps },
-        { title: 'Budgeted Hours', content: details.budgeted_hours }, // Removed .toString() from here, handled in createDetailSection
+        { title: 'Budgeted Hours', content: details.budgeted_hours },
         { title: 'Estimated Cost', content: details.cost },
         { title: 'Software / Tech Stack', content: details.software_components }
     ];
@@ -635,12 +635,12 @@ function renderTaskDetailView(container, taskId) {
 }
 
 
-// Helper function to find a task by ID (will be used by rendering functions)
+// Helper function to find a task by ID
 function getTaskById(taskId) {
     return projectTasks.find(task => task.id === taskId);
 }
 
-// Helper function to find children of a task (will be used by rendering functions)
+// Helper function to find children of a task
 function getChildrenTasks(parentId) {
     return projectTasks.filter(task => task.parent_id === parentId);
 }
