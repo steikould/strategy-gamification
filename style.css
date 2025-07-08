@@ -1,82 +1,45 @@
-body {
-    font-family: 'Press Start 2P', cursive;
-    background-color: #000020; /* Dark blue/purple - common retro game background */
-    color: #FFFFFF; /* White text */
-    overflow-x: hidden; /* Prevent horizontal scrollbar issues */
+:root {
+    /* Colors extracted from the provided 80's image */
+    --color-teal: #2BAF90;
+    --color-light-green: #A1D4B1;
+    --color-gold: #F1A512;
+    --color-orange: #DD4111;
+    --color-burgundy: #8C0027;
+
+    /* Common 80s bit-gaming palette additions */
+    --color-dark-blue-bg: #000033; /* Deeper, more saturated dark blue for background */
+    --color-bright-pink: #FF00FF; /* Classic 80s neon pink */
+    --color-electric-blue: #00FFFF; /* Classic 80s neon cyan */
+    --color-dark-shadow: #1A1A1A; /* For deeper shadows and outlines */
+    --color-light-grey: #DEDEDE; /* For lighter accents */
 }
 
-/* General retro button/panel styling - can be applied with Tailwind too but good for base */
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--color-dark-blue-bg); /* Deeper dark blue/purple */
+    color: var(--color-light-grey); /* Lighter text for contrast */
+    overflow-x: hidden; /* Prevent horizontal scrollbar issues */
+    /* Add a subtle pixelated texture if desired, using a repeating background image */
+    /* background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><rect width="2" height="2" fill="%23101040"/><rect x="2" y="2" width="2" height="2" fill="%23101040"/><rect x="0" y="2" width="2" height="2" fill="%23000033"/><rect x="2" y="0" width="2" height="2" fill="%23000033"/></svg>'); */
+    /* background-size: 4px 4px; */
+}
+
+/* General retro button/panel styling */
 .retro-panel {
-    border: 4px solid #FFFFFF;
-    border-radius: 8px; /* Rounded corners */
+    border: 3px solid var(--color-gold); /* Gold border from image */
+    border-radius: 4px; /* Sharper corners for 8-bit feel */
     padding: 1rem;
     margin-bottom: 1rem;
-    background-color: #202040; /* Slightly lighter than body for contrast */
-    box-shadow: 4px 4px 0px #505070; /* Simple pixelated shadow */
+    background-color: var(--color-dark-blue-bg); /* Matching background for cohesion */
+    box-shadow: 4px 4px 0px var(--color-orange); /* Orange shadow from image for pop */
+    outline: 2px solid var(--color-burgundy); /* Extra outline for layered look */
+    outline-offset: -5px; /* Offset to create a border effect */
 }
 
 .retro-button {
     font-family: 'Press Start 2P', cursive;
-    background-color: #FFD700; /* Gold - common retro accent */
-    color: #000000; /* Black text on button */
-    padding: 0.5rem 1rem;
-    border: 2px solid #000000;
-    border-radius: 6px;
-    cursor: pointer;
-    text-transform: uppercase;
-    box-shadow: 2px 2px 0px #806000; /* Darker gold shadow */
-}
-
-.retro-button:hover {
-    background-color: #FFA500; /* Orange on hover */
-}
-
-.retro-button:active {
-    transform: translate(2px, 2px);
-    box-shadow: none;
-}
-
-/* Styling for lines/connections - very basic, might need SVG for better ones */
-.connection-line {
-    border-left: 2px dashed #FFFFFF;
-    height: 20px; /* Adjust as needed */
-    margin-left: 20px; /* Indent to appear connected to parent */
-}
-
-/* Specific text colors if needed */
-.text-green-pixel {
-    color: #32CD32; /* Lime Green */
-}
-.text-pink-pixel {
-    color: #FF69B4; /* Hot Pink */
-}
-.text-cyan-pixel {
-    color: #00FFFF; /* Cyan */
-}
-
-/* Ensure Tailwind's Press Start 2P is applied if not directly on body */
-[class*="font-press-start"] {
-    font-family: 'Press Start 2P', cursive !important;
-}
-
-/* Custom scrollbar for a more retro feel (optional, browser support varies) */
-::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-}
-::-webkit-scrollbar-track {
-    background: #000020;
-    border: 2px solid #FFFFFF;
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb {
-    background: #FFD700;
-    border: 2px solid #000000;
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #FFA500;
-}
-::-webkit-scrollbar-corner {
-    background: #000020;
-}
+    background-color: var(--color-gold); /* Gold button */
+    color: var(--color-dark-shadow); /* Dark text on button */
+    padding: 0.6rem 1.2rem; /* Slightly larger padding */
+    border: 3px solid var(--color-burgundy); /* Burgundy border */
+    border-radius: 4px; /* Sharper corners */
