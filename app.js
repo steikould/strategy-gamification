@@ -378,11 +378,12 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Current Page:", currentPage);
     console.log("Selected Task:", selectedTask);
     console.log("Expanded Phases:", expandedPhases);
-    // Placeholder for initial render call
-    const rootDiv = document.getElementById('root');
-    if (rootDiv) {
-        rootDiv.innerHTML = '<h1 class="text-2xl text-center text-yellow-400">Welcome to Project Quest!</h1><p class="text-center text-gray-300">Loading map...</p>';
-    }
+    // The renderApp() call above is responsible for populating the rootDiv.
+    // The static HTML below was overwriting it and causing the "Loading map..." to persist.
+    // const rootDiv = document.getElementById('root');
+    // if (rootDiv) {
+    //     rootDiv.innerHTML = '<h1 class="text-2xl text-center text-yellow-400">Welcome to Project Quest!</h1><p class="text-center text-gray-300">Loading map...</p>';
+    // }
 });
 
 // Later, renderApp and other functions will be defined here.
