@@ -440,7 +440,7 @@ function renderMapView(container) {
             // Prevent click from bubbling if it's on a sub-task button inside
             if (e.target.closest('.sub-task-action-button')) return;
 
-            expandedPhases[phase.id] = !expandedPhases[phase.id];
+            expandedPhases[mapNode.id] = !expandedPhases[mapNode.id]; // Corrected: was phase.id
             renderApp(); // Re-render the whole app to reflect changes
         });
 
