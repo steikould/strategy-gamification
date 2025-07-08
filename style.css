@@ -15,31 +15,88 @@
 }
 
 body {
-    font-family: 'Press Start 2P', cursive;
-    background-color: var(--color-dark-blue-bg); /* Deeper dark blue/purple */
-    color: var(--color-light-grey); /* Lighter text for contrast */
-    overflow-x: hidden; /* Prevent horizontal scrollbar issues */
-    /* Add a subtle pixelated texture if desired, using a repeating background image */
-    /* background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><rect width="2" height="2" fill="%23101040"/><rect x="2" y="2" width="2" height="2" fill="%23101040"/><rect x="0" y="2" width="2" height="2" fill="%23000033"/><rect x="2" y="0" width="2" height="2" fill="%23000033"/></svg>'); */
-    /* background-size: 4px 4px; */
+    font-family: 'Press Start 2P', cursive !important;
+    background-color: var(--color-dark-blue-bg) !important; /* Ensuring dark blue background */
+    color: var(--color-light-grey) !important; /* Ensuring light grey text */
+    overflow-x: hidden;
 }
 
-/* General retro button/panel styling */
 .retro-panel {
-    border: 3px solid var(--color-gold); /* Gold border from image */
-    border-radius: 4px; /* Sharper corners for 8-bit feel */
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background-color: var(--color-dark-blue-bg); /* Matching background for cohesion */
-    box-shadow: 4px 4px 0px var(--color-orange); /* Orange shadow from image for pop */
-    outline: 2px solid var(--color-burgundy); /* Extra outline for layered look */
-    outline-offset: -5px; /* Offset to create a border effect */
+    border: 3px solid var(--color-gold) !important;
+    border-radius: 4px !important;
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+    background-color: var(--color-dark-blue-bg) !important; /* Ensuring dark blue panel background */
+    box-shadow: 4px 4px 0px var(--color-orange) !important;
+    outline: 2px solid var(--color-burgundy) !important;
+    outline-offset: -5px !important;
 }
 
 .retro-button {
-    font-family: 'Press Start 2P', cursive;
-    background-color: var(--color-gold); /* Gold button */
-    color: var(--color-dark-shadow); /* Dark text on button */
-    padding: 0.6rem 1.2rem; /* Slightly larger padding */
-    border: 3px solid var(--color-burgundy); /* Burgundy border */
-    border-radius: 4px; /* Sharper corners */
+    font-family: 'Press Start 2P', cursive !important;
+    background-color: var(--color-gold) !important;
+    color: var(--color-dark-shadow) !important;
+    padding: 0.6rem 1.2rem !important;
+    border: 3px solid var(--color-burgundy) !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    text-transform: uppercase !important;
+    box-shadow: 3px 3px 0px var(--color-orange) !important;
+    transition: all 0.05s ease-out !important;
+    letter-spacing: 1px !important;
+}
+
+.retro-button:hover {
+    background-color: var(--color-orange) !important;
+    color: var(--color-light-grey) !important;
+    box-shadow: 3px 3px 0px var(--color-burgundy) !important;
+}
+
+.retro-button:active {
+    transform: translate(3px, 3px) !important;
+    box-shadow: none !important;
+}
+
+.connection-line {
+    border-left: 2px solid var(--color-bright-pink) !important;
+    height: 20px !important;
+    margin-left: 15px !important;
+    position: relative !important;
+    background-image: linear-gradient(to bottom, var(--color-bright-pink) 2px, transparent 2px) !important;
+    background-size: 100% 8px !important;
+}
+
+.text-teal-pixel {
+    color: var(--color-teal) !important;
+}
+.text-orange-pixel {
+    color: var(--color-orange) !important;
+}
+.text-electric-blue-pixel {
+    color: var(--color-electric-blue) !important;
+}
+.text-bright-pink-pixel {
+    color: var(--color-bright-pink) !important;
+}
+
+/* Ensure Tailwind's Press Start 2P is applied */
+/* (Keeping this, though !important is now on body font) */
+.font-press-start {
+    font-family: 'Press Start 2P', cursive !important;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px !important;
+    height: 10px !important;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-dark-blue-bg) !important;
+    border: 1px solid var(--color-burgundy) !important;
+    border-radius: 2px !important;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color
