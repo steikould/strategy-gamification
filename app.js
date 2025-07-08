@@ -188,7 +188,7 @@ const projectTasks = [
         'Integrate optimized plans with dispatch systems.'
       ],
       budgeted_hours: 450,
-      cost: '$180K - $350K',
+      cost: '$180K - '$350K',
       software_components: ['Vertex AI (Training, Endpoints)', 'Cloud Run', 'BigQuery', 'Python ML Libraries (Optimization, Routing)']
     }
   },
@@ -437,18 +437,18 @@ function renderMapView(container) {
             // Prevent click from bubbling if it's on a sub-task button inside
             if (e.target.closest('.sub-task-action-button')) return;
 
-            expandedPhases[phase.id] = !expandedPhases[phase.id];
+            expandedPhases[mapNode.id] = !expandedPhases[mapNode.id]; // Corrected to use mapNode.id
             renderApp(); // Re-render the whole app to reflect changes
         });
 
         const phaseHeader = document.createElement('h2');
         phaseHeader.className = 'text-xl text-yellow-300 mb-2 font-bold';
-        phaseHeader.textContent = `${expandedPhases[phase.id] ? '▼' : '►'} ${phase.name}`;
+        phaseHeader.textContent = `${expandedPhases[mapNode.id] ? '▼' : '►'} ${mapNode.name}`; // Corrected to use mapNode.id and mapNode.name
         phaseElement.appendChild(phaseHeader);
 
         const phaseDescription = document.createElement('p');
         phaseDescription.className = 'text-sm text-gray-300 mb-3';
-        phaseDescription.textContent = phase.description;
+        phaseDescription.textContent = mapNode.description; // Corrected to use mapNode.description
         phaseElement.appendChild(phaseDescription);
 
         // Render sub_task children if expanded
