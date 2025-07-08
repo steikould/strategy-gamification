@@ -1,5 +1,6 @@
 :root {
     --font-retro: 'Press Start 2P', cursive;
+    --font-body: Verdana, Geneva, sans-serif; /* New readable body font */
 
     /* 80s Bit-Gaming Palette */
     --color-teal: #2BAF90;
@@ -27,7 +28,7 @@
 }
 
 body {
-    font-family: var(--font-retro);
+    font-family: var(--font-body); /* Changed to body font */
     background-color: var(--bg-dark-blue);
     color: var(--text-light-grey); /* Default text color */
     margin: 0;
@@ -105,10 +106,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Styling for Body Text within panels */
 .retro-panel-body-text {
-    font-family: var(--font-retro); /* Ensure retro font for consistency */
+    font-family: var(--font-body); /* Changed to body font */
     color: var(--text-light-grey);
-    font-size: 0.875rem; /* Tailwind's text-sm */
-    line-height: 1.4;
+    font-size: 0.875rem; /* Tailwind's text-sm - adjust if needed for Verdana */
+    line-height: 1.5; /* Adjusted for better readability with Verdana */
 }
 
 .retro-sub-task-panel {
@@ -129,7 +130,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .retro-button {
-    font-family: var(--font-retro);
+    font-family: var(--font-body); /* Changed to body font for readability */
     border-radius: var(--corner-radius-slight);
     padding: 0.5rem 1rem; /* Default padding */
     text-transform: uppercase;
@@ -199,10 +200,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .retro-intermediate-panel-body-text {
-    font-family: var(--font-retro);
+    font-family: var(--font-body); /* Changed to body font */
     color: var(--text-light-grey);
-    font-size: 0.875rem; /* Tailwind text-sm */
-    line-height: 1.4;
+    font-size: 0.875rem; /* Tailwind text-sm - adjust if needed for Verdana */
+    line-height: 1.5; /* Adjusted for better readability with Verdana */
     margin-bottom: 1rem; /* Tailwind mb-4 */
 }
 
@@ -226,10 +227,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .retro-detail-body-text,
 .retro-detail-list {
-    font-family: var(--font-retro);
+    font-family: var(--font-body); /* Changed to body font */
     color: var(--text-light-grey);
-    font-size: 1rem; /* Tailwind's text-base for more readability on detail page */
-    line-height: 1.5;
+    font-size: 1rem; /* Tailwind's text-base - should be good for Verdana */
+    line-height: 1.6; /* Slightly increased for dense text blocks with Verdana */
     margin-bottom: 0.75rem; /* mb-3 */
 }
 .retro-detail-list ul, .retro-detail-list ol {
@@ -268,11 +269,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .retro-text-error {
-    font-family: var(--font-retro);
+    font-family: var(--font-body); /* Changed to body font */
     color: var(--color-orange); /* Orange for errors */
     text-align: center;
     padding: 2.5rem; /* Tailwind p-10 */
-    font-size: 1.25rem; /* text-xl */
+    font-size: 1.25rem; /* text-xl - should be okay for Verdana */
+    line-height: 1.5;
     text-shadow: 1px 1px 0px var(--text-black);
 }
 
