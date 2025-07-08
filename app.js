@@ -66,6 +66,8 @@ function renderApp() {
     console.log("renderApp called. Current page:", currentPage);
 }
 
+// ... (rest of your code above renderMapView) ...
+
 function renderMapView(container) {
     container.innerHTML = ''; // Clear container
 
@@ -81,26 +83,28 @@ function renderMapView(container) {
     // Get all phases and strategies to display as top-level cards on the map
     const mapLevelNodes = projectTasks.filter(task => task.type === 'phase' || task.type === 'strategy');
 
+    console.log("DEBUG: mapLevelNodes found:", mapLevelNodes);
+
+    // Optional: Sort them if a specific order is desired, e.g., by ID or a potential future 'order' property.
+    // For now, they will appear in the order they are in the projectTasks array.
+
     mapLevelNodes.forEach(mapNode => {
         const phaseElement = document.createElement('div');
+        // ... (rest of the phaseElement creation and appending logic) ...
         phaseElement.className = 'retro-panel bg-indigo-800 border-2 border-indigo-400 rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer';
         phaseElement.addEventListener('click', (e) => {
             if (e.target.closest('.sub-task-action-button')) return;
-
-            // This was previously fixed and is correct:
             expandedPhases[mapNode.id] = !expandedPhases[mapNode.id];
             renderApp();
         });
 
         const phaseHeader = document.createElement('h2');
         phaseHeader.className = 'text-xl text-yellow-300 mb-2 font-bold';
-        // This was previously fixed and is correct:
         phaseHeader.textContent = `${expandedPhases[mapNode.id] ? '▼' : '►'} ${mapNode.name}`;
         phaseElement.appendChild(phaseHeader);
 
         const phaseDescription = document.createElement('p');
         phaseDescription.className = 'text-sm text-gray-300 mb-3';
-        // This was previously fixed and is correct:
         phaseDescription.textContent = mapNode.description;
         phaseElement.appendChild(phaseDescription);
 
@@ -135,49 +139,9 @@ function renderMapView(container) {
                 phaseElement.appendChild(childrenContainer);
             }
         }
-        mapGrid.appendChild(phaseElement);
+        mapGrid.appendChild(phaseElement); // This line is crucial for appending to mapGrid
     });
 
-    // Render Intermediate Detail Panel if a subTask is selected
-    if (selectedTask) {
-        const task = getTaskById(selectedTask);
-        if (task) {
-            const detailPanel = document.createElement('div');
-            detailPanel.className = 'fixed bottom-0 left-0 right-0 bg-gray-900 border-t-4 border-yellow-400 p-6 shadow-2xl z-50 max-h-[40vh] overflow-y-auto';
-
-            const panelHeader = document.createElement('h3');
-            panelHeader.className = 'text-2xl text-yellow-400 mb-3';
-            panelHeader.textContent = task.name;
-            detailPanel.appendChild(panelHeader);
-
-            const panelDescription = document.createElement('p');
-            panelDescription.className = 'text-gray-300 mb-4 text-sm';
-            panelDescription.textContent = task.description;
-            detailPanel.appendChild(panelDescription);
-
-            const fullDetailsButton = document.createElement('button');
-            fullDetailsButton.textContent = 'Start Quest (Full Details)';
-            fullDetailsButton.className = 'retro-button bg-red-500 hover:bg-red-400 text-white mr-2';
-            fullDetailsButton.addEventListener('click', () => {
-                currentPage = task.id;
-                selectedTask = null;
-                renderApp();
-            });
-            detailPanel.appendChild(fullDetailsButton);
-
-            const closeButton = document.createElement('button');
-            closeButton.textContent = 'Close';
-            closeButton.className = 'retro-button bg-gray-600 hover:bg-gray-500';
-            closeButton.addEventListener('click', () => {
-                selectedTask = null;
-                renderApp();
-            });
-            detailPanel.appendChild(closeButton);
-
-            container.appendChild(detailPanel);
-        }
-    }
-}
 
 function renderTaskDetailView(container, taskId) {
     container.innerHTML = '';
