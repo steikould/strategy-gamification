@@ -141,7 +141,7 @@ function renderMapView(container) {
         }
         mapGrid.appendChild(phaseElement); // This line is crucial for appending to mapGrid
     });
-
+}
 
 function renderTaskDetailView(container, taskId) {
     container.innerHTML = '';
