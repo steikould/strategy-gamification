@@ -978,6 +978,100 @@ const projectTasks = [
       ],
       software_components: ['Agile Project Management Tools (Jira, Trello)', 'CI/CD Tools (Jenkins, GitLab CI, GitHub Actions)', 'Feedback Collection Tools']
     }
+  },
+  // ... (other existing tasks from the original set and previous additions remain here) ...
+
+  // New Top-Level Project: Advanced Beam Data Foundation
+  {
+    id: 'project_beam_data_foundation',
+    name: 'Project: Advanced Beam Data Foundation for Pipelines',
+    description: 'A comprehensive initiative to build a modern, Beam-based data foundation for national fuel pipelines, enabling real-time ML/AI and operational insights through phased delivery.',
+    parent_id: null,
+    type: 'phase',
+    details_page_content: {
+      implementation_details: "This initiative outlines a strategic, phased approach to implementing a state-of-the-art data foundation using Apache Beam for national fuel pipeline operations. It aims to enable advanced analytics, real-time monitoring, and machine learning capabilities by segmenting the work into distinct phases, allowing for continuous value realization and iterative refinement. The project covers foundational infrastructure, real-time processing, advanced ML integration, and operationalization.",
+      steps: [
+        "Phase 1: Foundation & Ingestion (Months 1-3) - Establish core infrastructure and high-volume data ingestion.",
+        "Phase 2: Real-time Processing & Core Application Development (Months 4-7) - Build real-time pipelines for anomaly detection and operational monitoring.",
+        "Phase 3: Advanced ML Integration & Predictive Capabilities (Months 8-12) - Integrate ML models for predictive maintenance and sophisticated anomaly detection.",
+        "Phase 4: Operationalization, Optimization & Expansion (Months 13-18) - Mature the platform, optimize performance/cost, and plan for future expansion."
+      ],
+      software_components: ['Apache Beam', 'Google Cloud Dataflow / AWS EMR / Azure Flink (Beam Runners)', 'Apache Kafka / Google Cloud Pub/Sub / AWS Kinesis', 'Google Cloud Storage / AWS S3 / Azure Data Lake Store', 'Apache Iceberg / Apache Parquet', 'Python', 'ML Libraries (TensorFlow, PyTorch, Scikit-learn)', 'MLOps Tools (Kubeflow, MLflow, etc.)']
+    }
+  },
+
+  // Sub-tasks for Project: Advanced Beam Data Foundation
+  {
+    id: 'bfp_phase1_ingestion',
+    name: 'Phase 1: Foundation & Ingestion (Months 1-3)',
+    description: 'Establish core infrastructure for high-volume, high-velocity data ingestion and initial processing from critical pipeline sensors.',
+    parent_id: 'project_beam_data_foundation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Establish the core infrastructure for high-volume, high-velocity data ingestion and initial processing from critical pipeline sensors. This phase focuses on detailed requirements gathering, setting up the chosen cloud environment (GCP, AWS, or Azure) with Beam runtimes, messaging queues, and data lake storage (Iceberg/Parquet). Core Beam pipelines for raw sensor data ingestion will be developed, including basic transforms, error handling, and foundational security/governance. Your Role: Leading the technical architecture and initial Beam pipeline development, ensuring scalability and adherence to best practices for distributed systems. Acting as a bridge between technical implementation and business requirements.",
+      steps: [
+        "Detailed Requirements Gathering: Finalize sensor data sources, velocity, volume, and initial use case priorities.",
+        "Technology & Platform Setup: Finalize cloud provider, Beam runtime, messaging queues (Kafka/Pub/Sub/Kinesis), and data lake storage (GCS/S3/ADLS with Iceberg/Parquet).",
+        "Core Ingestion Pipeline Development (Beam): Develop initial Beam pipelines for raw sensor data, including parsing, schema enforcement, type conversion.",
+        "Error Handling for Ingestion: Establish robust error handling and dead-letter queues.",
+        "Security & Governance Baseline: Implement foundational security, access controls, and data governance policies."
+      ],
+      software_components: ['Apache Beam', 'Google Dataflow / AWS EMR / Azure Flink', 'Apache Kafka / Pub/Sub / Kinesis', 'GCS / S3 / ADLS', 'Apache Iceberg', 'Apache Parquet', 'Python']
+    }
+  },
+  {
+    id: 'bfp_phase2_realtime',
+    name: 'Phase 2: Real-time Processing & Core Application Development (Months 4-7)',
+    description: 'Build and deploy core real-time processing pipelines for critical operational insights, focusing on anomaly detection and monitoring.',
+    parent_id: 'project_beam_data_foundation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Build and deploy core real-time processing pipelines for critical operational insights, focusing on immediate value-adding applications like anomaly detection and basic operational monitoring. This involves developing advanced data quality/cleansing pipelines, a real-time anomaly detection pipeline integrated with alerting, and pipelines for operational monitoring dashboards. Initial unified batch/stream processing patterns will be demonstrated. Your Role: Hands-on development and leadership of the Beam pipeline teams, driving real-time analytics implementation, ensuring code quality, and optimizing for low latency/high throughput.",
+      steps: [
+        "Advanced Data Quality & Cleansing Pipelines (Beam): Develop transforms for filtering noise, deduplication, advanced imputation, and time synchronization.",
+        "Real-time Anomaly Detection Pipeline (Beam): Compute real-time metrics, apply rule-based/statistical anomaly detection, and integrate with alerting systems.",
+        "Operational Monitoring Dashboard Integration: Develop Beam pipelines to aggregate data for real-time dashboards (Grafana, custom UI) focusing on KPIs.",
+        "Unified Batch/Stream Pattern Implementation: Demonstrate reprocessing historical data with the same streaming Beam pipeline logic."
+      ],
+      software_components: ['Apache Beam', 'Relevant Beam Runner', 'Alerting Systems (PagerDuty, Slack)', 'Dashboarding Tools (Grafana)', 'Python']
+    }
+  },
+  {
+    id: 'bfp_phase3_ml_integration',
+    name: 'Phase 3: Advanced ML Integration & Predictive Capabilities (Months 8-12)',
+    description: 'Integrate advanced ML models into streaming pipelines for predictive maintenance and sophisticated anomaly detection, leveraging MLOps.',
+    parent_id: 'project_beam_data_foundation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Integrate advanced machine learning models into the streaming pipelines for predictive maintenance and more sophisticated anomaly detection, leveraging historical data for model training and MLOps principles. Activities include real-time feature engineering, preparing historical data for model training, integrating pre-trained models for real-time inference, automating MLOps pipelines, and piloting LLM/RAG for unstructured data. Your Role: Leading ML engineering, bridging data engineering/science, implementing MLOps, and driving ML integration.",
+      steps: [
+        "Feature Engineering Pipelines (Beam): Develop real-time feature engineering for ML models (moving averages, aggregations over windows).",
+        "ML Model Training Data Preparation (Beam): Use Beam's batch capabilities to prepare large historical datasets for predictive models (e.g., pump failure).",
+        "Real-time ML Inference Pipelines (Beam): Integrate pre-trained ML models into Beam streaming pipelines for continuous predictions.",
+        "MLOps Pipeline Automation: Implement automated MLOps (Kubeflow, MLflow, or custom scripts with Beam) for CI/CD/CT of models.",
+        "LLM/RAG Integration (Pilot): Conduct a pilot using Beam's RAG package for processing unstructured data (e.g., maintenance logs)."
+      ],
+      software_components: ['Apache Beam', 'Relevant Beam Runner', 'Python ML Libraries (TensorFlow, PyTorch, Scikit-learn)', 'MLOps Tools (Kubeflow, MLflow)', 'Apache Beam RAG Package (for pilot)']
+    }
+  },
+  {
+    id: 'bfp_phase4_ops_expansion',
+    name: 'Phase 4: Operationalization, Optimization & Expansion (Months 13-18)',
+    description: 'Mature the data platform, optimize performance/cost, ensure sustainability, and plan for expansion.',
+    parent_id: 'project_beam_data_foundation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Mature the data platform, optimize performance and cost, ensure long-term operational sustainability, and plan for expansion to new use cases and pipeline segments. This includes in-depth performance tuning, cost optimization of Beam pipelines, implementing robust monitoring/alerting/logging, enhancing error handling and resiliency, developing thorough documentation and training, optimizing edge-to-cloud data flows, and strategic planning for future expansion.",
+      steps: [
+        "Performance Tuning & Cost Optimization: Analyze Beam pipeline performance (CPU, memory, I/O), use cost calculators, optimize configurations, and refine autoscaling.",
+        "Robust Monitoring, Alerting & Logging: Implement comprehensive dashboards, alerting rules, and centralized logging for Beam jobs and infrastructure.",
+        "Error Handling & Resiliency Enhancements: Implement advanced error handling (retries, circuit breakers, backpressure) and conduct fault injection testing.",
+        "Documentation & Training: Develop technical documentation and provide training to operations, IT, and analytics teams.",
+        "Edge-to-Cloud Optimization: Review and optimize edge processing logic and data flow to cloud Beam pipelines.",
+        "Strategic Expansion Planning: Identify and prioritize next-generation use cases and new pipeline segments for onboarding."
+      ],
+      software_components: ['Apache Beam', 'Relevant Beam Runner', 'Monitoring Tools (Prometheus, Grafana, Cloud specific monitoring)', 'Logging Systems (ELK Stack, Cloud specific logging)', 'Cost Optimization Tools (e.g., Dataflow Cost Calculator)']
+    }
   }
 ];
 
