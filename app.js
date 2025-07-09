@@ -1560,11 +1560,47 @@ function renderMapView(container) {
         // Keep p-4, cursor, transition. Remove Tailwind shadow classes.
         phaseElement.className = 'retro-panel p-4 cursor-pointer transition-shadow duration-300';
         phaseElement.addEventListener('click', (e) => {
-            // Prevent click from bubbling if it's on a sub-task button inside
-            if (e.target.closest('.sub-task-action-button')) return;
+            // If a button or a link inside the card is clicked, let that specific action take precedence.
+            if (e.target.closest('button') || e.target.closest('a')) {
+                return;
+            }
 
-            expandedPhases[mapNode.id] = !expandedPhases[mapNode.id]; // Corrected: was phase.id
-            renderApp(); // Re-render the whole app to reflect changes
+            // *** HIGHEST PRIORITY: Explicit navigation for project_units_gcp ***
+            if (mapNode.id === 'project_units_gcp') {
+                currentPage = mapNode.id;
+                selectedTask = null;
+                expandedPhases = {}; // Reset expanded phases for a clean detail view
+                console.log(`Navigating to detail page for: ${mapNode.id}`); // Debug
+                renderApp();
+                return; // Stop further processing for this click
+            }
+
+            // General logic for other phase/strategy cards:
+            // If a card is primarily for showing sub-tasks (i.e., it might not have its own rich detail_page_content)
+            // then toggle its expansion. Otherwise, navigate to its detail page.
+            // We assume phases with details_page_content should navigate.
+            // Strategies might also navigate or expand depending on structure.
+
+            // Check if the mapNode is primarily a container for sub-tasks or has its own view
+            const children = getChildrenTasks(mapNode.id);
+            const hasDisplayableSubTasksOnMap = children.some(child => child.type === 'sub_task');
+
+            if (mapNode.details_page_content && !hasDisplayableSubTasksOnMap) { // If it has details and NO sub-tasks to show on map, navigate
+                currentPage = mapNode.id;
+                selectedTask = null;
+                expandedPhases = {};
+                console.log(`Navigating to detail page for: ${mapNode.id}`); // Debug
+            } else if (hasDisplayableSubTasksOnMap) { // If it has sub-tasks to show, toggle
+                expandedPhases[mapNode.id] = !expandedPhases[mapNode.id];
+                console.log(`Toggling expansion for: ${mapNode.id}, expanded: ${expandedPhases[mapNode.id]}`); // Debug
+            } else if (mapNode.details_page_content) { // Fallback: if it has details but also sub-tasks, prioritize details
+                 currentPage = mapNode.id;
+                 selectedTask = null;
+                 expandedPhases = {};
+                 console.log(`Fallback: Navigating to detail page for: ${mapNode.id}`); // Debug
+            }
+            // If none of the above, clicking might do nothing or just re-render current view if expandedPhases changed.
+            renderApp();
         });
 
         const phaseHeader = document.createElement('h2');
