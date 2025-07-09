@@ -458,6 +458,526 @@ const projectTasks = [
       ],
       software_components: ['Apache Beam', 'Google Cloud Dataflow', 'Google Cloud Pub/Sub', 'Google Cloud Storage', 'BigQuery', 'Relevant ML serving frameworks']
     }
+  },
+  // Existing Beam Sub-Tasks from previous addition (ensure these are not duplicated if run again)
+  // ... (assuming previous Beam tasks like ml_batch_inference_beam are here) ...
+  // If they are not, this section will just append the new ones.
+  // For a clean append, this assumes the previous Beam tasks were part of the 'projectTasks'
+  // variable that was read. If this is a re-run, one might need to filter them out first
+  // or ensure this is the first time they are added.
+  // For this operation, I will just append the new set of 5 top-level projects and their 22 sub-tasks.
+
+  // New Top-Level Projects (DeltaCat/Ray Initiative)
+  {
+    id: 'phaseA_lakehouse_foundation',
+    name: 'Project 1: Lakehouse Foundation & Bronze Ingestion (DeltaCat/Ray)',
+    description: 'Establish a robust, scalable DeltaCat/Ray-based data lakehouse foundation for all operational and historical data, focusing on efficient, continuous ingestion into the Bronze layer and solving the "1000 tiny files" problem.',
+    parent_id: null,
+    type: 'phase',
+    details_page_content: {
+      implementation_details: "This foundational project focuses on setting up the core infrastructure using Google Cloud Storage, DeltaCat (or similar like PyIceberg on Ray Data), and Ray clusters. It aims to establish continuous, high-volume data ingestion pipelines for sensor data, PI System data, on-prem databases (Oracle, SQL Server), and non-structured data into a well-managed Bronze layer. A key outcome is leveraging DeltaCat's compaction to address the '1000 tiny files' issue, ensuring efficient storage and access.",
+      steps: [
+        "1.1 Design & Setup Core Lakehouse Infrastructure (GCS, DeltaCat, Ray)",
+        "1.2 Implement High-Volume Multi-Source Data Ingestion (Sensors, PI System, On-Prem DBs, Files) into Bronze Layer",
+        "1.3 Address '1000 Tiny Files' Problem with DeltaCat Compaction"
+      ],
+      software_components: ['DeltaCat / PyIceberg', 'Apache Ray (Ray Data, Ray Stream)', 'Google Cloud Storage (GCS)', 'Pub/Sub', 'Google Cloud Dataflow (for specific ingestion paths)', 'Litmus', 'Datastream / CDC tools']
+    }
+  },
+  {
+    id: 'phaseB_lakehouse_curation',
+    name: 'Project 2: Data Curation & Enrichment (Silver/Gold Tables)',
+    description: 'Transform raw Bronze layer data into clean, conformed, and richly enriched Silver layer tables and initial Gold tables, serving as a single source of truth for analytics and ML.',
+    parent_id: null,
+    type: 'phase',
+    details_page_content: {
+      implementation_details: "Building on the Bronze layer, this project implements the Silver layer of the medallion architecture. It involves defining a unified data model, developing Ray-based data cleansing and conformance jobs, and performing efficient, large-scale joins to enrich data (e.g., sensor readings with geospatial and equipment metadata). DeltaCat's efficient upserts will be utilized. Initial outlier detection will be integrated into Silver layer processing.",
+      steps: [
+        "2.1 Define Unified Data Model & Medallion Architecture (Bronze-Silver-Gold)",
+        "2.2 Implement Data Cleansing & Conformance (Ray Data/Modin) into Silver DeltaCat Tables",
+        "2.3 Perform Efficient Joins for Enrichment, Creating 'Golden Tables' in Silver Layer (Ray, DeltaCat Upserts)",
+        "2.4 Implement Initial Outlier Detection & Flagging in Silver Layer"
+      ],
+      software_components: ['DeltaCat / PyIceberg', 'Apache Ray (Ray Data, Modin)', 'Python (Pandas, NumPy)']
+    }
+  },
+  {
+    id: 'phaseC_lakehouse_ml_ray',
+    name: 'Project 3: Real-time Operational ML/AI Pipelines (Ray MLOps)',
+    description: 'Develop, deploy, and manage high-impact operational ML/AI models (e.g., advanced leak detection, predictive maintenance) leveraging the curated lakehouse data and Ray for a unified MLOps lifecycle.',
+    parent_id: null,
+    type: 'phase',
+    details_page_content: {
+      implementation_details: "This project focuses on operationalizing machine learning using the Python-friendly data lakehouse. It involves setting up an ML development environment with direct access to DeltaCat tables, creating advanced ML-specific features for the Gold layer (potentially a feature store), and implementing both real-time (Ray Serve/Actors) and batch (Ray Train/Data) ML model training and inference pipelines for critical use cases. Ray's unified platform will simplify MLOps.",
+      steps: [
+        "3.1 Establish Pythonic ML Development Environment with DeltaCat Access",
+        "3.2 Develop Advanced Feature Engineering Pipelines for Gold Layer (Ray)",
+        "3.3 Implement Real-time & Batch ML Models (Leak Detection, Predictive Maintenance, Optimization, etc.) using Ray Train/Serve",
+        "3.4 Streamline MLOps with Ray's Unified Platform"
+      ],
+      software_components: ['DeltaCat / PyIceberg', 'Apache Ray (Ray Data, Ray Train, Ray Serve, Ray Tune)', 'Python ML Libraries (Scikit-learn, TensorFlow, PyTorch)', 'Feature Store concepts']
+    }
+  },
+  {
+    id: 'phaseD_lakehouse_governance',
+    name: 'Project 4: Data Governance, Quality & Observability',
+    description: 'Establish robust data governance, ensure high data quality, and provide transparency and auditability across the DeltaCat/Ray lakehouse using Apache Iceberg features.',
+    parent_id: null,
+    type: 'phase',
+    details_page_content: {
+      implementation_details: "This project ensures the reliability and trustworthiness of the data lakehouse. It involves adopting Apache Iceberg as the table format for all layers to leverage ACID transactions, full schema evolution, and time travel capabilities. Data quality will be enhanced using Bloom Filters for deduplication via DeltaCat, alongside monitoring dashboards and alerting. A centralized metadata catalog will be established.",
+      steps: [
+        "4.1 Implement Apache Iceberg Tables for Data Reliability & Governance (ACID, Schema Evolution, Time Travel)",
+        "4.2 Enhance Data Quality & Deduplication (DeltaCat Bloom Filters, Monitoring Dashboards)",
+        "4.3 Establish Centralized Metadata & Catalog for DeltaCat Tables"
+      ],
+      software_components: ['DeltaCat / PyIceberg', 'Apache Iceberg', 'Apache Ray', 'Data Quality Monitoring Tools']
+    }
+  },
+  {
+    id: 'strategyX_lakehouse_adoption',
+    name: 'Project 5: Strategic Shift & Continuous Improvement',
+    description: 'Facilitate a strategic shift to the cloud-native/hybrid lakehouse, focusing on cost reduction, flexibility, scalability, and fostering continuous innovation through training and agile practices.',
+    parent_id: null,
+    type: 'strategy',
+    details_page_content: {
+      implementation_details: "This overarching strategy focuses on the organizational and operational aspects of adopting the new lakehouse. It includes a phased transition from legacy systems (PI, Oracle, SQL Server), optimizing costs by leveraging Ray and efficient storage, training personnel on new technologies (DeltaCat, Ray), and establishing agile development processes with continuous feedback loops.",
+      steps: [
+        "5.1 Plan and Execute Phased Legacy System Transition to Lakehouse",
+        "5.2 Implement Cost Optimization Strategies (Ray for Spark replacement, Storage Efficiency)",
+        "5.3 Conduct Training & Knowledge Transfer for Teams (DeltaCat, Ray, Lakehouse Concepts)",
+        "5.4 Establish Iterative Development, Feedback Loops, and Continuous Improvement Processes"
+      ],
+      software_components: ['DeltaCat / PyIceberg', 'Apache Ray', 'Change Management Processes', 'Training Programs']
+    }
+  },
+
+  // Sub-tasks for Project 1: phaseA_lakehouse_foundation
+  {
+    id: 'phaseA_1_1_core_infra',
+    name: '1.1 Design & Setup Core Lakehouse Infrastructure',
+    description: 'Set up GCS buckets, configure DeltaCat/PyIceberg on Ray Data, and provision initial Ray cluster.',
+    parent_id: 'phaseA_lakehouse_foundation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This foundational step involves provisioning and configuring the core components of the data lakehouse. Google Cloud Storage (GCS) will serve as the primary storage layer. DeltaCat (or a similar framework like PyIceberg integrated with Ray Data) will be set up to manage table formats (Delta Lake/Iceberg) on top of GCS. An initial Apache Ray cluster will be provisioned to handle data ingestion and processing tasks.",
+      steps: [
+        "Provision GCS buckets with appropriate storage classes and access policies for Bronze, Silver, and Gold layers.",
+        "Install and configure DeltaCat or PyIceberg libraries within the Ray environment.",
+        "Define initial catalog settings for DeltaCat/PyIceberg.",
+        "Set up and configure an initial auto-scaling Ray cluster on GCP (e.g., using Kubernetes Engine or Vertex AI Custom Training with Ray).",
+        "Establish network configurations and security permissions for Ray cluster access to GCS and other services."
+      ],
+      software_components: ['Google Cloud Storage (GCS)', 'DeltaCat / PyIceberg', 'Apache Ray (Ray Core, Ray Data)', 'Google Kubernetes Engine (GKE) / Vertex AI']
+    }
+  },
+  {
+    id: 'phaseA_1_2_sensor_ingest',
+    name: '1.2.1 High-Volume Sensor Data Ingestion (Direct)',
+    description: 'Develop real-time pipelines (Pub/Sub + Dataflow/Ray Stream) for direct high-velocity sensor data capture.',
+    parent_id: 'phaseA_lakehouse_foundation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Addresses the need for sub-second to few-second data freshness from critical sensors by establishing direct ingestion pathways, bypassing slower legacy systems. This involves capturing data from instruments that can directly egress, potentially using Pub/Sub for message queuing and Dataflow or Ray Stream for processing and writing to Bronze DeltaCat tables. This is crucial for real-time ML like leak detection.",
+      steps: [
+        "Identify sensors capable of direct, high-velocity data egress.",
+        "Configure sensor output formats (e.g., JSON, Avro) suitable for streaming.",
+        "Set up Pub/Sub topics for ingesting raw sensor data streams.",
+        "Develop and deploy Dataflow or Ray Stream pipelines to consume from Pub/Sub, perform minimal validation/transformation, and write to Bronze DeltaCat tables.",
+        "Implement error handling and monitoring for ingestion pipelines.",
+        "Ensure data is written in small, frequent batches manageable by DeltaCat compaction."
+      ],
+      software_components: ['Google Cloud Pub/Sub', 'Apache Beam (via Dataflow)', 'Apache Ray (Ray Stream)', 'DeltaCat / PyIceberg', 'GCS']
+    }
+  },
+  {
+    id: 'phaseA_1_2_pi_integration',
+    name: '1.2.2 PI System Integration (Optimized Extraction)',
+    description: 'Develop optimized extraction from Aveeva PI System (Enterprise/Historian) to Bronze layer, potentially using Litmus.',
+    parent_id: 'phaseA_lakehouse_foundation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Focuses on efficiently extracting data from the existing Aveeva PI System (both Enterprise and Historian modules) into the Bronze layer of the lakehouse. This aims to overcome the limitations of the current C# script and potentially expensive egress. Options include developing more efficient batch export mechanisms or leveraging Litmus to directly move PI data to GCS/DeltaCat.",
+      steps: [
+        "Analyze current PI System data structures and egress limitations.",
+        "Evaluate Litmus capabilities for direct GCS/DeltaCat integration from PI System.",
+        "If Litmus is not fully suitable, design and develop optimized batch extraction scripts (e.g., Python using PI SDK/API if available, or improved C#).",
+        "Schedule and automate data extraction processes.",
+        "Ensure data is landed in GCS in a format compatible with DeltaCat Bronze tables.",
+        "Monitor extraction performance and data consistency."
+      ],
+      software_components: ['Aveeva PI System (Enterprise, Historian)', 'Litmus', 'Python/C# for custom scripting', 'PI SDK/API', 'DeltaCat / PyIceberg', 'GCS']
+    }
+  },
+  {
+    id: 'phaseA_1_2_onprem_db_ingest',
+    name: '1.2.3 On-Prem Database Ingestion (CDC)',
+    description: 'Migrate/replicate data from on-prem Oracle & SQL Server using Datastream/CDC to Bronze DeltaCat tables.',
+    parent_id: 'phaseA_lakehouse_foundation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This activity involves ingesting data from on-premise relational databases (Oracle and SQL Server) into the Bronze layer. Change Data Capture (CDC) tools like Google Cloud Datastream will be used to replicate data changes in near real-time or frequent batches directly into DeltaCat tables on GCS, ensuring the lakehouse stays synchronized with these source systems.",
+      steps: [
+        "Identify source tables and schemas in Oracle and SQL Server databases.",
+        "Configure Datastream or other CDC tools (e.g., Debezium with Kafka Connect if more control is needed) for each source database.",
+        "Set up target DeltaCat table structures in the Bronze layer to receive CDC data.",
+        "Establish secure network connectivity between on-prem systems and GCP.",
+        "Initiate historical backfills and continuous replication.",
+        "Monitor CDC pipeline health, latency, and data integrity."
+      ],
+      software_components: ['Oracle Database', 'SQL Server', 'Google Cloud Datastream', 'Debezium (optional)', 'Apache Kafka (optional)', 'DeltaCat / PyIceberg', 'GCS']
+    }
+  },
+  {
+    id: 'phaseA_1_2_nonstructured_ingest',
+    name: '1.2.4 Non-Structured Data Ingestion',
+    description: 'Establish processes for ingesting non-structured data (Parquet, XML files) into managed DeltaCat tables.',
+    parent_id: 'phaseA_lakehouse_foundation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Addresses the current lack of sophistication in storing non-structured data (e.g., existing Parquet, XML files in GCS). This involves developing structured processes to register these files as DeltaCat tables, allowing for metadata management, schema enforcement (where applicable), and integration into the broader lakehouse ecosystem for future processing and analytics.",
+      steps: [
+        "Inventory existing non-structured data sources and formats in GCS.",
+        "Define schemas for non-structured data where possible (e.g., for Parquet files).",
+        "Develop Ray Data or Spark jobs to read existing files and write them as DeltaCat tables, or register external files if supported and appropriate.",
+        "Implement processes for ongoing ingestion of new non-structured files into managed DeltaCat tables.",
+        "Ensure metadata (source, timestamps, etc.) is captured for these datasets."
+      ],
+      software_components: ['DeltaCat / PyIceberg', 'Apache Ray (Ray Data)', 'Apache Spark (optional)', 'GCS', 'Parquet tools', 'XML parsing libraries']
+    }
+  },
+  {
+    id: 'phaseA_1_3_compaction',
+    name: '1.3 "1000 Tiny Files" & Initial Compaction',
+    description: 'Leverage DeltaCat\'s LSM-based CDC compaction to merge small, arriving sensor data files in the Bronze layer.',
+    parent_id: 'phaseA_lakehouse_foundation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "A critical step to address the '1000 tiny files' problem, especially with high-frequency sensor data. DeltaCat's (or the underlying Delta Lake/Iceberg format's) compaction capabilities will be configured and utilized to automatically or regularly merge small incoming data files into larger, optimized Parquet files within the Bronze layer. This improves read performance for downstream processes and optimizes storage.",
+      steps: [
+        "Understand DeltaCat's/Iceberg's compaction mechanisms (e.g., `OPTIMIZE` command, auto-compaction features).",
+        "Configure compaction strategies based on data volume, arrival frequency, and query patterns.",
+        "Implement scheduled Ray jobs or utilize built-in DeltaCat features to run compaction on Bronze tables.",
+        "Monitor compaction effectiveness and impact on storage and query performance.",
+        "Adjust compaction parameters as needed."
+      ],
+      software_components: ['DeltaCat / PyIceberg', 'Apache Ray (for scheduling/running compaction jobs if needed)', 'Parquet']
+    }
+  },
+  // Sub-tasks for Project 2: phaseB_lakehouse_curation
+  {
+    id: 'phaseB_2_1_unified_model',
+    name: '2.1 Define Unified Data Model & Medallion Architecture',
+    description: 'Collaborate to define a unified data model for pipeline operations, aligning with Bronze-Silver-Gold layers.',
+    parent_id: 'phaseB_lakehouse_curation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This strategic activity involves working closely with domain experts, data scientists, and analysts to define a common understanding and structure for data across the organization. The Medallion Architecture (Bronze for raw, Silver for cleansed/conformed, Gold for aggregated/business-ready) will be formally adopted and mapped to specific data entities and transformations.",
+      steps: [
+        "Conduct workshops with stakeholders to identify key data entities and relationships.",
+        "Document the conceptual, logical, and physical data models for Bronze, Silver, and Gold layers.",
+        "Define standards for data naming, data types, and metadata.",
+        "Ensure the model supports current and anticipated analytical and ML use cases.",
+        "Version control the data model artifacts."
+      ],
+      software_components: ['Data Modeling Tools (e.g., ERwin, Lucidchart, dbt for documentation)', 'Collaboration Platforms']
+    }
+  },
+  {
+    id: 'phaseB_2_2_cleansing_conformance',
+    name: '2.2 Implement Data Cleansing & Conformance',
+    description: 'Develop Ray-based jobs to cleanse raw Bronze data and write conformed data to Silver DeltaCat tables.',
+    parent_id: 'phaseB_lakehouse_curation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Focuses on improving data quality by processing raw data from Bronze DeltaCat tables using Apache Ray (Ray Data/Modin). This includes implementing rules for handling missing values, correcting erroneous sensor readings, standardizing units of measurement, identifying and flagging duplicates, and other data quality checks. The cleaned and conformed data is then written to new Silver DeltaCat tables.",
+      steps: [
+        "Identify common data quality issues from source systems.",
+        "Define data quality rules and cleansing logic.",
+        "Develop and test Ray Data/Modin jobs for reading from Bronze, applying transformations, and writing to Silver tables.",
+        "Implement logging and metrics for data quality improvements.",
+        "Automate cleansing jobs as part of the data pipeline."
+      ],
+      software_components: ['Apache Ray (Ray Data, Modin)', 'DeltaCat / PyIceberg', 'Python (Pandas, NumPy)', 'Data Quality Libraries (e.g., Great Expectations, TFDV integrated in Ray)']
+    }
+  },
+  {
+    id: 'phaseB_2_3_enrichment_joins',
+    name: '2.3 Perform Efficient Joins for Enrichment (Golden Tables)',
+    description: 'Use Ray/Modin to join cleansed sensor data with metadata, storing enriched data in Silver DeltaCat tables using efficient upserts.',
+    parent_id: 'phaseB_lakehouse_curation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This involves creating highly valuable 'golden tables' by enriching cleansed sensor data with contextual information. For instance, joining sensor readings with geospatial data, pipe section tags, and equipment specifications from metadata tables (ingested from Oracle/SQL Server). Ray's distributed DataFrame capabilities (Modin) will be used for these potentially large-scale joins. DeltaCat's optimized upserts (via positional deletes) will efficiently update these enriched Silver tables if metadata changes or historical data is reprocessed.",
+      steps: [
+        "Identify datasets for enrichment (e.g., sensor data, asset metadata).",
+        "Design join strategies and keys for combining datasets.",
+        "Develop Ray Data/Modin jobs to perform distributed joins at scale.",
+        "Leverage DeltaCat's upsert capabilities for efficient updates to enriched tables.",
+        "Validate the accuracy and completeness of enriched data.",
+        "Example: A sensor reading `P_001: 500 PSI` joined with `pipeline_metadata` to become `P_001: 500 PSI, Segment: North-12, Material: Steel`."
+      ],
+      software_components: ['Apache Ray (Ray Data, Modin)', 'DeltaCat / PyIceberg', 'Python']
+    }
+  },
+  {
+    id: 'phaseB_2_4_outlier_flagging',
+    name: '2.4 Outlier Detection - Initial Flagging',
+    description: 'Apply lightweight, unsupervised outlier detection (Z-score, IQR) on Silver data, flagging potential anomalies.',
+    parent_id: 'phaseB_lakehouse_curation',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "As part of the Silver layer processing, this step involves applying initial, computationally efficient outlier detection techniques to the cleansed and enriched sensor data. Methods like Z-score or Interquartile Range (IQR) can flag potential anomalies by adding columns like `is_outlier`, `outlier_score`, or `outlier_type` to the Silver tables. This serves as an early warning system and provides valuable input for more sophisticated downstream ML models.",
+      steps: [
+        "Select appropriate statistical outlier detection methods for sensor data.",
+        "Incorporate these methods into Ray-based Silver layer processing jobs.",
+        "Define thresholds for flagging outliers.",
+        "Add new columns to Silver tables to store outlier information.",
+        "Evaluate the effectiveness of initial flagging."
+      ],
+      software_components: ['Apache Ray (Ray Data)', 'Python (NumPy, SciPy, Pandas)', 'DeltaCat / PyIceberg']
+    }
+  },
+  // Sub-tasks for Project 2: phaseC_lakehouse_ml_ray (Corrected comment, should be Project 3)
+  // Sub-tasks for Project 3: phaseC_lakehouse_ml_ray
+  {
+    id: 'phaseC_3_1_ml_dev_env',
+    name: '3.1 ML Model Development Environment',
+    description: 'Provide a Pythonic Data Lakehouse environment for direct access to DeltaCat tables using common ML libraries.',
+    parent_id: 'phaseC_lakehouse_ml_ray',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Establish an accessible and efficient development environment for data scientists and ML engineers. This environment will allow them to directly query and interact with Silver and Gold layer data stored in DeltaCat tables using familiar Python tools and libraries (Pandas, NumPy, Scikit-learn, TensorFlow, PyTorch), reducing friction and accelerating ML experimentation.",
+      steps: [
+        "Configure Ray cluster access for data science teams (e.g., Jupyter notebooks connected to Ray).",
+        "Provide examples and documentation for querying DeltaCat tables via Ray Data.",
+        "Ensure necessary Python ML libraries are available in the Ray environment.",
+        "Integrate with version control (Git) for ML code and notebooks."
+      ],
+      software_components: ['Apache Ray (Ray Client, Ray Data)', 'DeltaCat / PyIceberg', 'Jupyter / VS Code', 'Python ML Stack (Pandas, NumPy, Scikit-learn, TensorFlow, PyTorch)']
+    }
+  },
+  {
+    id: 'phaseC_3_2_feature_eng_gold',
+    name: '3.2 Feature Engineering & Gold Layer Creation',
+    description: 'Develop Ray pipelines for advanced ML-specific features from Silver data, storing them in Gold DeltaCat tables/feature store.',
+    parent_id: 'phaseC_lakehouse_ml_ray',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This involves creating the Gold layer of the medallion architecture, which contains highly curated and aggregated data specifically prepared for machine learning models. Ray-based pipelines will be developed to generate advanced features like rolling averages, rate of change calculations, frequency domain features, etc., from Silver layer data. These ML-ready features will be stored in Gold DeltaCat tables, potentially structured as a feature store for easy consumption by ML training and inference jobs.",
+      steps: [
+        "Identify features required for specific ML models (leak detection, predictive maintenance, etc.).",
+        "Develop Ray Data pipelines for complex feature transformations and aggregations.",
+        "Implement logic for handling time-series features, categorical encoding, and numerical scaling.",
+        "Design schema for Gold DeltaCat tables / feature store.",
+        "Automate feature generation pipelines.",
+        "Ensure features are versioned and documented."
+      ],
+      software_components: ['Apache Ray (Ray Data)', 'DeltaCat / PyIceberg', 'Python (Pandas, Scikit-learn)', 'Feature Store concepts/tools (e.g., Feast - integrated with Ray)']
+    }
+  },
+  {
+    id: 'phaseC_3_3_leak_detection_ml',
+    name: '3.3.1 Advanced Leak Detection & Localization ML',
+    description: 'Deploy real-time ML (acoustic, pressure wave) on Ray Serve/Actors using lakehouse data, with false positive reduction.',
+    parent_id: 'phaseC_lakehouse_ml_ray',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Develop and deploy sophisticated ML models for real-time leak detection and localization. This includes models based on acoustic anomaly detection, pressure wave analysis, or multi-modal fusion, consuming enriched data from Silver/Gold layers. Ray Serve or Ray Actors will be used for real-time model serving. An additional ML component will focus on reducing false positives from initial alerts.",
+      steps: [
+        "Train ML models for leak detection using Gold layer features.",
+        "Deploy trained models using Ray Serve or custom Ray Actors for low-latency inference.",
+        "Integrate real-time data streams from Silver/Gold DeltaCat tables (potentially via Ray Stream or Pub/Sub).",
+        "Develop models for false positive reduction and alert refinement.",
+        "Write predictions and alerts back to Gold DeltaCat tables or dedicated alerting systems.",
+        "Monitor model performance and retrain as needed."
+      ],
+      software_components: ['Apache Ray (Ray Serve, Ray Actors, Ray Train, Ray Data)', 'DeltaCat / PyIceberg', 'Python ML Libraries', 'Real-time data streaming infrastructure']
+    }
+  },
+  {
+    id: 'phaseC_3_3_pred_maint_ml',
+    name: '3.3.2 Pipeline Integrity & Predictive Maintenance ML',
+    description: 'Train and run batch/regular ML models (corrosion, crack propagation, RUL) using Ray Train/Data on Gold layer data.',
+    parent_id: 'phaseC_lakehouse_ml_ray',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Focuses on ML models for assessing pipeline integrity and predicting maintenance needs. This includes models for corrosion prediction, crack propagation modeling, and estimating remaining useful life (RUL) of components. These models will typically be trained and run in batch mode (daily, weekly, monthly) using Ray Train and Ray Data on historical and current Gold layer data.",
+      steps: [
+        "Collect and prepare historical data for training integrity assessment models.",
+        "Train models for corrosion, crack propagation, and RUL using Ray Train.",
+        "Schedule regular batch inference jobs using Ray Data to update predictions.",
+        "Integrate predictions with maintenance planning systems.",
+        "Continuously evaluate and improve model accuracy."
+      ],
+      software_components: ['Apache Ray (Ray Train, Ray Data)', 'DeltaCat / PyIceberg', 'Python ML Libraries']
+    }
+  },
+  {
+    id: 'phaseC_3_3_other_ml_models',
+    name: '3.3.3 Other Operational ML Models',
+    description: 'Implement ML for flow optimization, demand forecasting, cybersecurity, environmental compliance, and cross-border coordination using Ray.',
+    parent_id: 'phaseC_lakehouse_ml_ray',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This covers a range of other valuable ML applications for pipeline operations. Using the Ray framework and the curated Gold layer data, models will be developed and deployed for use cases such as flow optimization, demand forecasting, cybersecurity threat detection, environmental compliance monitoring, and facilitating cross-border coordination. The specific data freshness requirements (near real-time, hourly, etc.) for each model will be addressed.",
+      steps: [
+        "Define specific requirements and data needs for each operational ML model.",
+        "Develop and train models using Ray Train/Data.",
+        "Deploy models using Ray Serve/Actors or batch inference pipelines as appropriate.",
+        "Integrate model outputs into relevant operational systems or dashboards.",
+        "Monitor and maintain these diverse ML applications."
+      ],
+      software_components: ['Apache Ray (Ray Train, Ray Data, Ray Serve)', 'DeltaCat / PyIceberg', 'Python ML Libraries']
+    }
+  },
+  {
+    id: 'phaseC_3_4_simplified_mlops',
+    name: '3.4 Simplified MLOps with Ray',
+    description: 'Utilize Ray\'s unified platform for the entire ML lifecycle (data prep, training, tuning, deployment, serving, monitoring).',
+    parent_id: 'phaseC_lakehouse_ml_ray',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Leverage Apache Ray's capabilities as a unified platform to streamline MLOps. This involves using Ray for each stage of the machine learning lifecycle: data preparation (Ray Data), model training (Ray Train), hyperparameter tuning (Ray Tune), model deployment and serving (Ray Serve), and potentially integrating with monitoring tools. This approach simplifies the MLOps toolchain and improves iteration speed, addressing the challenge of deploying code into production.",
+      steps: [
+        "Establish standardized ML project structures leveraging Ray libraries.",
+        "Implement CI/CD pipelines for ML models built with Ray.",
+        "Utilize Ray Tune for efficient hyperparameter optimization.",
+        "Deploy models consistently using Ray Serve for real-time and Ray Data for batch.",
+        "Integrate Ray applications with existing monitoring and logging infrastructure (e.g., Prometheus, Grafana, Ray Dashboard).",
+        "Document MLOps best practices for Ray-based projects."
+      ],
+      software_components: ['Apache Ray (Ray Data, Ray Train, Ray Tune, Ray Serve, Ray Client)', 'CI/CD tools (e.g., Jenkins, GitLab CI, GitHub Actions)', 'Monitoring tools']
+    }
+  },
+  // Sub-tasks for Project 4: phaseD_lakehouse_governance
+  {
+    id: 'phaseD_4_1_iceberg_tables',
+    name: '4.1 Implement Iceberg Tables for Data Reliability & Governance',
+    description: 'Adopt Apache Iceberg for all DeltaCat tables, leveraging ACID, schema evolution, and time travel.',
+    parent_id: 'phaseD_lakehouse_governance',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This activity mandates the use of Apache Iceberg as the underlying table format for all data stored via DeltaCat in the Bronze, Silver, and Gold layers. This provides critical data reliability and governance features: ACID transactions ensure data consistency; full schema evolution allows for adapting to new data requirements without breaking pipelines or rewriting historical data (e.g., renaming columns, changing types); and time travel enables auditing, reproducing analyses, and quick data recovery.",
+      steps: [
+        "Configure DeltaCat to use Apache Iceberg as the default table format.",
+        "Ensure all data ingestion and transformation jobs write to Iceberg tables.",
+        "Train team on Iceberg concepts: snapshots, metadata, schema evolution, time travel.",
+        "Establish procedures for performing schema evolution operations.",
+        "Develop runbooks for using time travel for data recovery and auditing.",
+        "Example (Schema Evolution): Renaming `pressure_psi` to `pressure_reading_kpa` and changing units without rewriting old data."
+      ],
+      software_components: ['Apache Iceberg', 'DeltaCat / PyIceberg', 'Apache Ray']
+    }
+  },
+  {
+    id: 'phaseD_4_2_quality_dedup',
+    name: '4.2 Data Quality & Deduplication with DeltaCat',
+    description: 'Implement DeltaCat Bloom Filters for efficient duplicate checks; develop DQ monitoring and alerting.',
+    parent_id: 'phaseD_lakehouse_governance',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Focuses on proactive data quality management. DeltaCat's support for Bloom Filters will be implemented for efficient, large-scale duplicate checking, particularly for high-velocity sensor data during ingestion and processing. Additionally, data quality monitoring dashboards (e.g., using Ray to compute metrics and Looker/Grafana to display them) and automated alerting will be developed based on metrics derived from Bronze and Silver layer data.",
+      steps: [
+        "Configure and utilize Bloom Filters in DeltaCat for relevant datasets to prevent duplicates.",
+        "Define key data quality metrics (completeness, timeliness, accuracy, consistency).",
+        "Develop Ray jobs to compute DQ metrics regularly from Bronze and Silver tables.",
+        "Build dashboards to visualize DQ trends and issues.",
+        "Set up alerts for significant data quality degradations."
+      ],
+      software_components: ['DeltaCat', 'Bloom Filter implementations', 'Apache Ray', 'Data Visualization Tools (Looker, Grafana, etc.)', 'Alerting Systems']
+    }
+  },
+  {
+    id: 'phaseD_4_3_metadata_catalog',
+    name: '4.3 Centralized Metadata & Catalog',
+    description: 'Establish a centralized catalog for all DeltaCat tables for discovery and management.',
+    parent_id: 'phaseD_lakehouse_governance',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Addresses the need for organized and centrally managed data assets. A centralized metadata catalog will be established for all DeltaCat (Iceberg) tables across the Bronze, Silver, and Gold layers. This catalog will serve as a single point of discovery, providing information about table schemas, data lineage (if tracked), ownership, and descriptions, facilitating better data governance and usability.",
+      steps: [
+        "Evaluate and select a suitable metadata catalog solution compatible with DeltaCat/Iceberg (e.g., AWS Glue Data Catalog if on AWS, Nessie, or DeltaCat's own catalog capabilities if sufficient).",
+        "Integrate DeltaCat table registration with the chosen catalog.",
+        "Develop processes for populating and maintaining rich metadata (descriptions, tags, ownership).",
+        "Provide user-friendly access to the catalog for data discovery."
+      ],
+      software_components: ['DeltaCat / PyIceberg', 'Apache Iceberg', 'Metadata Catalog solutions (e.g., Nessie, AWS Glue Data Catalog, custom solutions)']
+    }
+  },
+  // Sub-tasks for Project 5: strategyX_lakehouse_adoption
+  {
+    id: 'strategyX_5_1_legacy_transition',
+    name: '5.1 Phased Legacy System Transition',
+    description: 'Gradual migration of critical data/workloads from PI, Oracle, SQL Server to the lakehouse; decommission where possible.',
+    parent_id: 'strategyX_lakehouse_adoption',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This involves a carefully planned, phased approach to migrate critical data and analytical workloads from existing legacy systems (Aveeva PI System, Oracle, SQL Server) to the new DeltaCat/Ray data lakehouse. The goal is to minimize disruption and risk while maximizing the benefits of the modern platform. Opportunities to decommission legacy data stores will be identified once their functionality is fully replicated and validated on the lakehouse.",
+      steps: [
+        "Prioritize data and workloads for migration based on business impact and technical feasibility.",
+        "Develop detailed migration plans for each source system.",
+        "Execute data migration, ensuring validation and reconciliation.",
+        "Rewrite or adapt existing analytical queries and applications to use the lakehouse.",
+        "Conduct parallel runs and user acceptance testing before decommissioning legacy systems."
+      ],
+      software_components: ['DeltaCat / PyIceberg', 'Apache Ray', 'Data Migration Tools', 'Legacy Systems (PI, Oracle, SQL Server)']
+    }
+  },
+  {
+    id: 'strategyX_5_2_cost_optimization',
+    name: '5.2 Cost Optimization Strategies',
+    description: 'Leverage Ray to replace expensive Spark jobs; optimize GCS storage and DeltaCat compaction for cost reduction.',
+    parent_id: 'strategyX_lakehouse_adoption',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Focuses on achieving cost efficiencies with the new lakehouse architecture. This includes leveraging Apache Ray's performance and resource management to potentially replace more expensive Spark jobs for large-scale data processing. Storage costs will be optimized through efficient Parquet file formats, intelligent data tiering on GCS (if applicable), and effective compaction strategies within DeltaCat/Iceberg to reduce storage footprint and improve query efficiency.",
+      steps: [
+        "Benchmark Ray performance against existing Spark jobs for specific workloads.",
+        "Identify and refactor high-cost Spark jobs to Ray where beneficial.",
+        "Implement optimal Parquet compression and encoding settings.",
+        "Configure GCS storage classes and lifecycle policies.",
+        "Fine-tune DeltaCat/Iceberg compaction and data retention policies to balance performance and storage costs.",
+        "Regularly monitor and report on compute and storage costs."
+      ],
+      software_components: ['Apache Ray', 'DeltaCat / PyIceberg', 'Google Cloud Storage', 'Cost Management Tools (GCP Cost Explorer)']
+    }
+  },
+  {
+    id: 'strategyX_5_3_training_transfer',
+    name: '5.3 Training & Knowledge Transfer',
+    description: 'Train existing data engineers (e.g., Oracle DBAs) on DeltaCat, Ray, and lakehouse concepts; foster team collaboration.',
+    parent_id: 'strategyX_lakehouse_adoption',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "A critical component for successful adoption is upskilling the existing team. This involves providing comprehensive training on new technologies like DeltaCat, Apache Ray, and modern data lakehouse principles for data engineers (including those with backgrounds like Oracle DB administration). It also aims to foster better collaboration between the analytics team, cloud engineering, and any new ML contractors by providing a unified Python-centric environment and clear design principles.",
+      steps: [
+        "Develop or procure training materials for DeltaCat, Ray, Python for data engineering, and lakehouse architecture.",
+        "Conduct workshops and hands-on training sessions for relevant teams.",
+        "Establish a mentorship program or pair programming to facilitate knowledge sharing.",
+        "Create shared documentation and best practice guides.",
+        "Promote cross-functional team projects on the new platform."
+      ],
+      software_components: ['Training Platforms', 'Documentation Tools (Confluence, Git wikis)', 'Apache Ray', 'DeltaCat / PyIceberg']
+    }
+  },
+  {
+    id: 'strategyX_5_4_agile_feedback',
+    name: '5.4 Iterative Development & Feedback Loops',
+    description: 'Establish agile processes for new data pipelines and ML models, embracing faster iteration and continuous feedback.',
+    parent_id: 'strategyX_lakehouse_adoption',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Shift towards more agile methodologies for developing and deploying data pipelines and ML models on the new lakehouse. This emphasizes faster iteration cycles, continuous integration/continuous deployment (CI/CD) where appropriate, and establishing regular feedback loops with data scientists, analysts, and operational teams. This approach allows for quicker delivery of value and continuous improvement of the lakehouse capabilities and data products based on user needs.",
+      steps: [
+        "Adopt agile project management practices (e.g., Scrum, Kanban) for lakehouse projects.",
+        "Implement CI/CD pipelines for data pipeline and ML model code.",
+        "Schedule regular sprint reviews and demos with stakeholders.",
+        "Create channels for users to provide feedback on data products and platform features.",
+        "Use feedback to prioritize backlog and guide future development."
+      ],
+      software_components: ['Agile Project Management Tools (Jira, Trello)', 'CI/CD Tools (Jenkins, GitLab CI, GitHub Actions)', 'Feedback Collection Tools']
+    }
   }
 ];
 
