@@ -338,3 +338,12 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.5;
     /* margin-left is handled by Tailwind in JS (ml-4) */
 }
+
+.retro-highlight {
+    color: var(--color-electric-blue);
+    background-color: var(--bg-panel-dark-blue); /* Darker background for contrast */
+    padding: 0.1em 0.3em;
+    border: 1px solid var(--color-electric-blue);
+    border-radius: var(--corner-radius-slight);
+    font-weight: bold;
+}
