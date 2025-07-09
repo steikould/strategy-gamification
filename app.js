@@ -1455,9 +1455,28 @@ const uwupTemplateData = {
       description: "Measurable criteria that will be used to determine if the work unit has successfully achieved its objective.",
       relevance: "Ensures that projects deliver tangible benefits, such as quantifiable improvements in leak detection rates, reduction in false positives, adherence to maintenance schedules, or cost savings in operations. Provides a basis for evaluating ROI on technology investments.",
       typeHintAnalogy: "If it has Success Criteria, its performance is measurable. This defines how the output or outcome of the work unit will be judged, essential for any goal-oriented process."
+    },
+    {
+      attributeName: "Risk Assessment Profile",
+      description: "A structured summary of potential risks associated with the work unit, including their classification, key categories, mitigation strategies, ownership, and review cadence.",
+      relevance: "Crucial for proactively managing hazards that could impact pipeline integrity, environmental safety, and operational continuity. Supports regulatory compliance (e.g., PHMSA requirements for risk management programs) and informs resource allocation for preventative measures and emergency preparedness.",
+      typeHintAnalogy: "If it has a Risk Assessment Profile, its potential failure modes and safety interlocks are documented. This acts like an exception handling block or a set of pre-flight checks, ensuring the system is aware of and prepared for potential issues."
+    },
+    {
+      attributeName: "Regulatory Compliance Tracking",
+      description: "Details of applicable regulations, standards, compliance milestones, required documentation, audit trail needs, and reporting obligations relevant to the work unit.",
+      relevance: "Essential for maintaining operational licenses and permits, ensuring adherence to stringent industry standards (e.g., PHMSA, EPA). Facilitates integration with Safety Management Systems and streamlines preparation for regulatory audits, avoiding costly fines or operational shutdowns.",
+      typeHintAnalogy: "If it has Regulatory Compliance Tracking, its external interfaces and legal contracts are defined. This attribute ensures the work unit meets its 'API contract' with regulatory bodies, with defined schemas for reporting and auditability."
+    },
+    {
+      attributeName: "Technology Stack Dependencies",
+      description: "Specification of required technology platforms, software versions, data formats, integration points, security controls, infrastructure prerequisites, and version management considerations for the work unit.",
+      relevance: "Critical for ensuring new projects or phases integrate smoothly with existing SCADA, control systems, and IT/OT infrastructure. Manages data security for critical infrastructure, addresses scalability for network coverage, and aids in coordinating maintenance and update schedules to prevent conflicts or service disruptions.",
+      typeHintAnalogy: "If it has Technology Stack Dependencies, its required libraries, services, and hardware environment are specified. This is akin to a `requirements.txt` or a Dockerfile's `FROM` statement, defining the necessary underlying platform and compatible component versions for the work unit to function correctly."
     }
   ],
-  applicationSummary: "This Unified Work Unit Profile (UWUP) allows the web application to use a consistent data structure and UI components for displaying information. Whether drilling down into a specific sub-project (like 'Deploy Corrosion Model v2.1') or viewing an aggregate summary of a major Phase (like 'Phase C: Lakehouse Operational ML'), the application can expect these core attributes to be present (even if some are high-level summaries for Phases). This enables flexible rendering, standardized reporting, and easier cross-project/phase comparisons, effectively treating all manageable work units with a consistent interface, regardless of their granularity."
+  applicationSummary: "This Unified Work Unit Profile (UWUP) allows the web application to use a consistent data structure and UI components for displaying information. Whether drilling down into a specific sub-project (like 'Deploy Corrosion Model v2.1') or viewing an aggregate summary of a major Phase (like 'Phase C: Lakehouse Operational ML'), the application can expect these core attributes to be present (even if some are high-level summaries for Phases). This enables flexible rendering, standardized reporting, and easier cross-project/phase comparisons, effectively treating all manageable work units with a consistent interface, regardless of their granularity.",
+  enhancementNote: "The additions of Risk Assessment, Regulatory Compliance, and Technology Stack Dependencies further enrich this profile, ensuring comprehensive coverage of critical operational, safety, and technical considerations pertinent to pipeline integrity and modern technology implementations."
 };
 
 // DOM Ready
