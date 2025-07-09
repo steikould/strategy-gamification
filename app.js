@@ -1843,8 +1843,17 @@ function renderCharacteristicsView(container) {
     uwupPresentationLink.href = 'uwup_presentation.html';
     uwupPresentationLink.target = '_blank'; // Open in a new tab
     uwupPresentationLink.textContent = 'View UWUP Presentation';
-    uwupPresentationLink.className = 'retro-button retro-button-primary block mx-auto mb-6 text-center';
+    uwupPresentationLink.className = 'retro-button retro-button-primary block mx-auto mb-3 text-center'; // Adjusted margin
     wrapper.appendChild(uwupPresentationLink);
+
+    // Add link to Data Platform Design Principles Page
+    const principlesLink = document.createElement('a');
+    principlesLink.href = 'data_platform_principles.html';
+    principlesLink.target = '_blank'; // Open in a new tab
+    principlesLink.textContent = 'View Data Platform Design Principles';
+    // Using a different button style for visual distinction, or could be same and rely on order/text
+    principlesLink.className = 'retro-button retro-button-secondary block mx-auto mb-6 text-center';
+    wrapper.appendChild(principlesLink);
 
     const headline = document.createElement('h1');
     // Using existing page title style for consistency, can be customized with .uwup-headline
