@@ -362,6 +362,102 @@ const projectTasks = [
       cost: '$80K - $150K',
       software_components: ['Redis', 'Feast', 'Google Cloud Memorystore', 'Google Kubernetes Engine (GKE)', 'BigQuery', 'Google Cloud Dataflow']
     }
+  },
+  // Newly added Beam Sub-Tasks
+  {
+    id: 'ml_batch_inference_beam',
+    name: 'Large-Scale Batch Inference (Beam)',
+    description: 'Utilize Apache Beam for high-throughput batch processing of ML models on massive datasets, optimizing for resource use and parallelization.',
+    parent_id: 'phase3_ml_applications',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This sub-task focuses on leveraging Apache Beam's strengths in distributed processing to apply machine learning models to very large datasets efficiently. Key aspects include model parallelization across a cluster and optimizing the use of specialized hardware like GPUs or TPUs. Example: Processing a full day's worth of transaction data through sophisticated fraud detection models.",
+      steps: [
+        'Design Beam pipeline for ingesting massive datasets (e.g., from GCS, BigQuery).',
+        'Integrate and serialize ML models for use within Beam transforms (e.g., RunInference API).',
+        'Implement parallel processing strategies for model execution.',
+        'Configure resource allocation and worker types for optimal performance (CPUs, GPUs, TPUs).',
+        'Develop output sinks for inference results (e.g., BigQuery, Pub/Sub).',
+        'Test and benchmark with representative large-scale datasets.'
+      ],
+      software_components: ['Apache Beam', 'Google Cloud Dataflow', 'Python ML Libraries (TensorFlow, PyTorch, Scikit-learn)', 'GPUs/TPUs (optional)', 'BigQuery', 'Google Cloud Storage']
+    }
+  },
+  {
+    id: 'platform_realtime_feature_eng_beam',
+    name: 'Real-Time Feature Engineering (Beam)',
+    description: 'Implement Apache Beam pipelines for real-time feature computation, complex aggregations, and multi-source joins for live ML models.',
+    parent_id: 'phase2_core_platform',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This involves using Apache Beam for dynamic feature engineering in streaming pipelines. It enables the creation of timely features for real-time ML model inference by processing live data streams, performing complex window-based aggregations, and joining streaming data with batch lookups. Example: Generating features for a real-time recommendation system based on continuous user activity.",
+      steps: [
+        'Define Beam streaming pipeline for ingesting live data (e.g., from Pub/Sub, Kafka).',
+        'Implement transformations for real-time feature computation (e.g., event parsing, data enrichment).',
+        'Utilize Beam\'s windowing capabilities for time-based aggregations (rolling averages, session statistics).',
+        'Design and implement joins between streaming data and external lookup tables (e.g., user profiles in BigQuery/Spanner).',
+        'Ensure low-latency processing for timely feature availability.',
+        'Integrate with feature stores or direct model serving endpoints.'
+      ],
+      software_components: ['Apache Beam', 'Google Cloud Dataflow', 'Google Cloud Pub/Sub', 'Kafka (optional)', 'BigQuery/Cloud Spanner (for lookups)', 'Feature Store solutions']
+    }
+  },
+  {
+    id: 'ml_data_orchestration_beam',
+    name: 'ML Data Pipeline Orchestration (Beam)',
+    description: 'Leverage Apache Beam for robust ETL, data validation, feature store management, and large-scale preprocessing for ML training data.',
+    parent_id: 'phase3_ml_applications',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Focuses on using Apache Beam to build and manage comprehensive data pipelines specifically for machine learning workflows. This includes extracting data from various sources, transforming it into suitable formats for model training, performing data quality checks, populating feature stores, and preparing large-scale datasets for model consumption.",
+      steps: [
+        'Develop Beam pipelines for ETL processes tailored to ML data requirements.',
+        'Integrate data validation steps using tools like TensorFlow Data Validation (TFDV) within Beam.',
+        'Implement logic for feature extraction, transformation, and normalization at scale.',
+        'Build pipelines to populate and maintain feature repositories (Feature Stores).',
+        'Handle large-scale data preprocessing tasks efficiently (e.g., image augmentation, text vectorization).',
+        'Orchestrate these pipelines using tools like Apache Airflow or Vertex AI Pipelines.'
+      ],
+      software_components: ['Apache Beam', 'Google Cloud Dataflow', 'TensorFlow Data Validation (TFDV)', 'Feature Store solutions', 'Apache Airflow / Vertex AI Pipelines', 'BigQuery', 'Google Cloud Storage']
+    }
+  },
+  {
+    id: 'ml_multi_model_inference_beam',
+    name: 'Multi-Model Inference Orchestration (Beam)',
+    description: 'Design and implement Apache Beam pipelines for complex inference scenarios involving model chaining, ensembles, and A/B testing.',
+    parent_id: 'phase3_ml_applications',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "This sub-task addresses advanced ML deployment patterns where multiple models are used in conjunction. Apache Beam can orchestrate these complex inference workflows, such as sequentially applying models (chaining), combining results from multiple models (ensembles), or evaluating different model versions in parallel (A/B testing). Example: A content moderation system that first runs a toxicity detection model, then a sentiment analysis model, and finally a classification model.",
+      steps: [
+        'Design Beam pipeline structure for multi-model workflows (e.g., sequential ParDo, branches).',
+        'Implement logic for model chaining, passing outputs of one model as inputs to another.',
+        'Develop strategies for ensemble inference, including result aggregation and weighting.',
+        'Set up A/B testing frameworks by splitting traffic within the Beam pipeline to different model versions.',
+        'Manage model loading and prediction calls efficiently within distributed environments.',
+        'Monitor and log performance of individual models and the overall multi-model pipeline.'
+      ],
+      software_components: ['Apache Beam', 'Google Cloud Dataflow', 'Python ML Libraries', 'Vertex AI Endpoints (for model hosting, optional)', 'Experimentation Frameworks']
+    }
+  },
+  {
+    id: 'platform_hybrid_ml_workloads_beam',
+    name: 'Hybrid Batch-Streaming ML Workloads (Beam)',
+    description: 'Develop unified Apache Beam pipelines for hybrid ML workloads, enabling consistent data processing and model serving across batch and streaming contexts (Lambda architecture).',
+    parent_id: 'phase2_core_platform',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Focuses on creating a unified codebase using Apache Beam to handle both batch and streaming data for ML workloads, often seen in Lambda architectures. This ensures consistent data processing logic whether backfilling historical data or performing real-time inference, simplifying development and maintenance. The same pipeline can serve both needs.",
+      steps: [
+        'Design Beam pipelines with shared core logic adaptable to both batch and streaming sources.',
+        'Implement windowing and trigger strategies suitable for both continuous (streaming) and bounded (batch) data.',
+        'Develop common data transformations and feature engineering steps applicable across contexts.',
+        'Ensure consistent model serving logic for both historical backfills and live predictions.',
+        'Test pipeline behavior and performance under both batch and streaming conditions.',
+        'Manage state and side inputs effectively in hybrid environments.'
+      ],
+      software_components: ['Apache Beam', 'Google Cloud Dataflow', 'Google Cloud Pub/Sub', 'Google Cloud Storage', 'BigQuery', 'Relevant ML serving frameworks']
+    }
   }
 ];
 
