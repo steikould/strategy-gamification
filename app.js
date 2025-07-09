@@ -1187,6 +1187,209 @@ const projectTasks = [
       ],
       software_components: ['Schema Registry (e.g., Confluent Schema Registry - for planning)', 'Data Serialization Libraries (Avro, Protobuf - for planning)']
     }
+  },
+  // ... (all previously existing tasks, including DeltaCat/Ray and Investigation projects, remain above this line) ...
+
+  // New Top-Level Project: UniTS GCP Implementation
+  {
+    id: 'project_units_gcp',
+    name: 'Project UniTS: GCP Implementation for Business Analytics',
+    description: 'Deployment of UniTS (Unified Time Series Model) in Google Cloud Platform to provide enterprise-grade time series analytics capabilities for business users and data scientists.',
+    parent_id: null,
+    type: 'phase',
+    details_page_content: {
+      implementation_details: "This plan outlines the deployment of UniTS (Unified Time Series Model) in Google Cloud Platform to create a scalable, secure, and user-friendly platform supporting forecasting, classification, anomaly detection, and imputation tasks for business users and data scientists. The project is segmented into nine distinct phases, covering environment setup, development, model training and serving infrastructure, UI development, monitoring, security, testing, and deployment. Key considerations include resource requirements, risk mitigation, and post-implementation support to ensure long-term success and value.",
+      steps: [
+        "Phase 1: Environment Setup and Infrastructure (Weeks 1-2)",
+        "Phase 2: Development Environment Setup (Weeks 2-3)",
+        "Phase 3: Model Training Infrastructure (Weeks 3-4)",
+        "Phase 4: Serving Infrastructure (Weeks 4-5)",
+        "Phase 5: User Interface and Tools (Weeks 5-6)",
+        "Phase 6: Monitoring and Observability (Weeks 6-7)",
+        "Phase 7: Security and Compliance (Weeks 7-8)",
+        "Phase 8: Testing and Validation (Weeks 8-9)",
+        "Phase 9: Deployment and Go-Live (Weeks 9-10)"
+      ],
+      resource_summary: "Technical Team: DevOps, Data Engineer, ML Engineer, Full-stack Developer, QA Engineer. Estimated Monthly Infrastructure Costs: $3,500-$9,100 (Compute, Storage, Network, Monitoring).",
+      risk_mitigation_summary: "Technical Risks (Model Performance, Scalability, Data Quality, Integration) addressed by testing, validation, gradual rollout, and automated checks. Business Risks (User Adoption, Cost Overruns, Compliance, Timeline Delays) addressed by training, monitoring, early engagement with legal/compliance, and agile approach.",
+      post_implementation_summary: "Ongoing operations include model retraining, system maintenance, user support, and performance/cost optimization. Continuous improvement via user feedback, feature enhancements, new data source integration, and technology stack updates.",
+      software_components: ['Google Cloud Platform (GCP)', 'Compute Engine', 'Kubernetes Engine (GKE)', 'Cloud Storage', 'Cloud Build', 'Artifact Registry', 'Cloud Functions', 'Cloud Run', 'Cloud SQL', 'Cloud Dataflow', 'Cloud Batch', 'Cloud Monitoring', 'Cloud Trace', 'Docker', 'PyTorch', 'Transformers', 'UniTS', 'React', 'Python SDK', 'R Package', 'Tableau/Looker/Power BI connectors']
+    }
+  },
+
+  // Sub-tasks for Project UniTS: GCP Implementation
+  {
+    id: 'units_phase1_env_setup',
+    name: 'Phase 1: Environment Setup and Infrastructure (Weeks 1-2)',
+    description: 'Establish the foundational GCP environment, including project setup, networking, security, and storage infrastructure for UniTS deployment.',
+    parent_id: 'project_units_gcp',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Create a secure and scalable Google Cloud Platform environment. This involves setting up a dedicated GCP project, configuring billing and IAM roles, enabling necessary APIs, establishing VPC networking with appropriate security rules, and provisioning Cloud Storage buckets and a Cloud SQL instance for UniTS data and metadata.",
+      steps: [
+        "1.1.1 Create dedicated GCP project for UniTS, configure billing and resource quotas.",
+        "1.1.2 Set up IAM roles (Admin, Data Scientist, Business Analyst) with appropriate permissions.",
+        "1.1.3 Enable GCP APIs: Compute Engine, Kubernetes Engine, Cloud Storage, Cloud Build, Artifact Registry, Cloud Functions, Cloud Run.",
+        "1.2.1 Create Virtual Private Cloud (VPC) with appropriate subnets.",
+        "1.2.2 Configure firewall rules for secure access and Cloud NAT for outbound internet.",
+        "1.2.3 Configure VPC peering (if needed) and implement network security policies.",
+        "1.3.1 Create Cloud Storage buckets (`units-model-artifacts`, `units-training-data`, `units-inference-data`, `units-logs`).",
+        "1.3.2 Configure bucket permissions and lifecycle policies.",
+        "1.3.3 Set up Cloud SQL instance for metadata and job tracking."
+      ],
+      software_components: ['GCP Console/CLI', 'IAM', 'VPC', 'Cloud Firewall', 'Cloud NAT', 'Cloud Storage', 'Cloud SQL']
+    }
+  },
+  {
+    id: 'units_phase2_dev_env',
+    name: 'Phase 2: Development Environment Setup (Weeks 2-3)',
+    description: 'Set up the development environment including code repositories, container environment, and development tools for UniTS.',
+    parent_id: 'project_units_gcp',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Prepare a robust development environment for the UniTS project. This includes forking the UniTS repository, setting up a private Cloud Source Repository with CI/CD workflows, creating custom Docker images for training and inference, storing them in Artifact Registry, and configuring Cloud Workstations with Jupyter notebooks and all necessary dependencies for data scientists.",
+      steps: [
+        "2.1.1 Fork UniTS repository from `mims-harvard/UniTS` and create private Cloud Source Repository.",
+        "2.1.2 Set up development branches, CI/CD workflows (Cloud Build), code review, and approval processes.",
+        "2.2.1 Create custom Docker images (base, training, inference) with PyTorch, Transformers, UniTS dependencies.",
+        "2.2.2 Store images in Artifact Registry and implement security scanning.",
+        "2.3.1 Set up Cloud Workstations for data scientists.",
+        "2.3.2 Configure Jupyter notebooks with UniTS environment and install dependencies (PyTorch, Transformers, Pandas, NumPy, Scikit-learn, UniTS custom deps)."
+      ],
+      software_components: ['Cloud Source Repositories', 'Cloud Build', 'Docker', 'Artifact Registry', 'Cloud Workstations', 'Jupyter', 'PyTorch', 'Transformers', 'Pandas', 'NumPy', 'Scikit-learn']
+    }
+  },
+  {
+    id: 'units_phase3_training_infra',
+    name: 'Phase 3: Model Training Infrastructure (Weeks 3-4)',
+    description: 'Build the infrastructure for training UniTS models, including GKE clusters, model management, and data pipelines.',
+    parent_id: 'project_units_gcp',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Establish a scalable and efficient infrastructure for training UniTS models. This involves creating a GKE cluster with GPU support, implementing autoscaling, setting up training job orchestration with Kubernetes Jobs, establishing model versioning and a registry, and creating Dataflow jobs for data preprocessing and ingestion from various sources.",
+      steps: [
+        "3.1.1 Create GKE cluster for training workloads with GPU-enabled node pools (NVIDIA T4/V100).",
+        "3.1.2 Implement Horizontal Pod Autoscaler and configure training job orchestration (Kubernetes Jobs).",
+        "3.2.1 Implement model versioning system and create model registry for experiment tracking.",
+        "3.2.2 Set up automated model validation, testing, and configure model deployment pipeline.",
+        "3.3.1 Create Cloud Dataflow jobs for data preprocessing, validation, and quality checks.",
+        "3.3.2 Set up automated data ingestion from BigQuery, Cloud Storage, external APIs, and Pub/Sub (streaming)."
+      ],
+      software_components: ['Google Kubernetes Engine (GKE)', 'NVIDIA GPUs (T4/V100)', 'Kubernetes Jobs', 'Model Registry (e.g., Vertex AI Model Registry, MLflow)', 'Cloud Dataflow', 'BigQuery', 'Cloud Storage', 'Pub/Sub']
+    }
+  },
+  {
+    id: 'units_phase4_serving_infra',
+    name: 'Phase 4: Serving Infrastructure (Weeks 4-5)',
+    description: 'Develop and deploy the infrastructure for serving UniTS models, including API development and batch processing capabilities.',
+    parent_id: 'project_units_gcp',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Build a robust and scalable serving infrastructure for UniTS models. This includes deploying models using Cloud Run or GKE with autoscaling and load balancing, developing REST APIs for various time series tasks (forecasting, classification, anomaly detection, imputation) with proper authentication and validation, and setting up Cloud Batch for large-scale offline processing.",
+      steps: [
+        "4.1.1 Deploy UniTS model using Cloud Run or GKE, implement auto-scaling, load balancing, and health checks.",
+        "4.1.2 Set up model A/B testing capabilities.",
+        "4.2.1 Create REST API endpoints for forecasting, classification, anomaly detection, and imputation.",
+        "4.2.2 Implement API authentication, rate limiting, request/response validation, and create OpenAPI documentation.",
+        "4.3.1 Set up Cloud Batch for large-scale processing with job queuing and scheduling.",
+        "4.3.2 Configure resource allocation for batch jobs and add monitoring/alerting."
+      ],
+      software_components: ['Cloud Run', 'Google Kubernetes Engine (GKE)', 'Cloud Load Balancing', 'OpenAPI/Swagger', 'Cloud Batch', 'REST API Frameworks (e.g., FastAPI, Flask)']
+    }
+  },
+  {
+    id: 'units_phase5_ui_tools',
+    name: 'Phase 5: User Interface and Tools (Weeks 5-6)',
+    description: 'Develop user-facing interfaces and tools, including a web application, SDKs, and BI tool integration for UniTS.',
+    parent_id: 'project_units_gcp',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Create user-friendly interfaces and tools for interacting with the UniTS platform. This involves developing a React-based web application for business users (data upload, model configuration, results visualization), Python SDK for data scientists, R package for analysts, CLI tools for batch operations, and integration with existing BI tools (Tableau, Looker, Power BI).",
+      steps: [
+        "5.1.1 Develop React-based web interface with features for data upload/visualization, model configuration, results display, job monitoring, and historical analysis.",
+        "5.2.1 Create Python SDK for data scientists and R package for business analysts.",
+        "5.2.2 Develop CLI tools for batch operations and create Jupyter notebook templates/examples.",
+        "5.3.1 Connect to existing BI tools (Tableau, Looker, Power BI) and create pre-built dashboards.",
+        "5.3.2 Implement data connectors for popular analytics platforms and set up automated reporting."
+      ],
+      software_components: ['React', 'Python SDK', 'R Package', 'CLI tools', 'Jupyter Notebooks', 'Tableau', 'Looker', 'Power BI', 'Web UI Frameworks']
+    }
+  },
+  {
+    id: 'units_phase6_monitoring',
+    name: 'Phase 6: Monitoring and Observability (Weeks 6-7)',
+    description: 'Implement comprehensive monitoring for application performance, model performance, and business metrics.',
+    parent_id: 'project_units_gcp',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Establish robust monitoring and observability across the UniTS platform. This includes setting up Cloud Monitoring for infrastructure and custom model performance metrics, implementing distributed tracing with Cloud Trace, tracking model accuracy and drift, monitoring prediction latency/throughput, and creating dashboards for system health, model performance, user adoption, cost optimization, and ROI.",
+      steps: [
+        "6.1.1 Set up Cloud Monitoring for infrastructure metrics and configure custom metrics for model performance.",
+        "6.1.2 Implement distributed tracing with Cloud Trace and create dashboards for system health/performance.",
+        "6.2.1 Track model accuracy and drift over time, monitor prediction latency/throughput.",
+        "6.2.2 Set up alerts for performance degradation and implement automated model retraining triggers.",
+        "6.3.1 Track user adoption and usage patterns, monitor cost optimization opportunities.",
+        "6.3.2 Create executive dashboards for ROI tracking and implement user feedback collection."
+      ],
+      software_components: ['Cloud Monitoring', 'Cloud Trace', 'Custom Metrics Dashboards', 'Alerting Systems']
+    }
+  },
+  {
+    id: 'units_phase7_security_compliance',
+    name: 'Phase 7: Security and Compliance (Weeks 7-8)',
+    description: 'Implement robust data security, access control, and compliance measures for the UniTS platform.',
+    parent_id: 'project_units_gcp',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Ensure the UniTS platform adheres to stringent security and compliance standards. This involves implementing encryption at rest and in transit, data loss prevention (DLP) policies, audit logging, data retention/deletion policies, SSO integration, role-based access control (RBAC), MFA, user activity monitoring, GDPR compliance measures, data lineage tracking, and compliance reporting.",
+      steps: [
+        "7.1.1 Implement encryption at rest/in transit, set up DLP policies, configure audit logging for all data access.",
+        "7.1.2 Implement data retention and deletion policies.",
+        "7.2.1 Set up Single Sign-On (SSO) integration, implement RBAC, configure MFA.",
+        "7.2.2 Create user activity monitoring.",
+        "7.3.1 Ensure GDPR compliance for data processing, implement data lineage tracking.",
+        "7.3.2 Set up compliance reporting and create data governance policies."
+      ],
+      software_components: ['GCP Security Tools (DLP, Audit Logs)', 'SSO Solutions', 'IAM (RBAC)', 'MFA Solutions', 'Data Governance Frameworks']
+    }
+  },
+  {
+    id: 'units_phase8_testing_validation',
+    name: 'Phase 8: Testing and Validation (Weeks 8-9)',
+    description: 'Conduct comprehensive performance testing, user acceptance testing (UAT), and disaster recovery validation.',
+    parent_id: 'project_units_gcp',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Thoroughly test and validate the UniTS platform before go-live. This includes load testing API endpoints, testing autoscaling, validating model accuracy against benchmarks, end-to-end system testing, conducting UAT with business analysts and data scientists, validating integrations, and testing disaster recovery procedures and business continuity plans.",
+      steps: [
+        "8.1.1 Conduct load testing for API endpoints and test auto-scaling capabilities.",
+        "8.1.2 Validate model accuracy against benchmarks and perform end-to-end system testing.",
+        "8.2.1 Conduct UAT with business analysts and data scientists.",
+        "8.2.2 Validate integration with existing tools and collect feedback for iteration.",
+        "8.3.1 Implement backup and restore procedures, test failover capabilities.",
+        "8.3.2 Create disaster recovery documentation and validate business continuity plans."
+      ],
+      software_components: ['Load Testing Tools (e.g., JMeter, Locust)', 'Automated Testing Frameworks', 'Backup and Recovery Tools']
+    }
+  },
+  {
+    id: 'units_phase9_deploy_golive',
+    name: 'Phase 9: Deployment and Go-Live (Weeks 9-10)',
+    description: 'Deploy the UniTS platform to production, conduct user training, and provide go-live support.',
+    parent_id: 'project_units_gcp',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Objective: Successfully deploy the UniTS platform to the production environment and transition to live operations. This involves deploying to production, configuring monitoring/alerting, implementing a gradual rollout strategy, setting up production support procedures, conducting comprehensive user training, and providing intensive go-live support.",
+      steps: [
+        "9.1.1 Deploy to production environment and configure production monitoring/alerting.",
+        "9.1.2 Implement gradual rollout strategy and set up production support procedures.",
+        "9.2.1 Conduct training sessions for different user groups, create documentation and tutorials.",
+        "9.2.2 Set up help desk/support channels and establish user community/knowledge sharing.",
+        "9.3.1 Provide 24/7 support during initial launch, monitor system performance closely.",
+        "9.3.2 Address issues promptly and collect user feedback for iteration."
+      ],
+      software_components: ['Deployment Tools (Cloud Build, Spinnaker, etc.)', 'Ticketing Systems (Jira, Zendesk)', 'Documentation Platforms (Confluence, ReadMe)']
+    }
   }
 ];
 
