@@ -1195,6 +1195,68 @@ let currentPage = 'map'; // 'map' or a task ID for detail view
 let selectedTask = null; // ID of the task for intermediate detail view
 let expandedPhases = {}; // Tracks expanded state of root phases, e.g., { phase1_foundation: true }
 
+const uwupTemplateData = {
+  headline: "Template: Unified Work Unit Profile (UWUP)",
+  introduction: "This Unified Work Unit Profile (UWUP) defines the essential characteristics that qualify any endeavor – whether a granular Project or a broad Phase – as a manageable and classifiable unit of work within our national fuel pipeline company's operational and developmental initiatives. It serves as a conceptual \"type hint,\" ensuring consistency and enabling effective management through shared understanding and structure.",
+  attributes: [
+    {
+      attributeName: "Unique Identifier (UID)",
+      description: "A distinct, system-wide code or name that unambiguously identifies the work unit (e.g., `phaseA_lakehouse_foundation`, `ml_leak_detection_v2`).",
+      relevance: "Essential for tracking progress, allocating resources (personnel, budget, equipment), managing dependencies, and auditing across thousands of miles of pipeline and numerous interconnected systems. Prevents ambiguity in high-stakes operational environments.",
+      typeHintAnalogy: "If it has a UID, it's a trackable entity. This is the primary key; its presence signals that the item is a specific instance we care about, much like an object having an identity in a distributed system."
+    },
+    {
+      attributeName: "Work Unit Name",
+      description: "A concise, human-readable title summarizing the purpose or outcome of the work unit (e.g., \"Phase 1: Foundation & Ingestion\", \"Advanced Acoustic Leak Detection Model Training\").",
+      relevance: "Facilitates clear communication among diverse teams (operations, engineering, safety, management). Essential for reports, dashboards, and discussions regarding pipeline integrity and efficiency projects.",
+      typeHintAnalogy: "If it has a Name, it has a purpose that can be communicated. It's the `__repr__` or `toString()` for our work units, making them understandable."
+    },
+    {
+      attributeName: "Objective / Goal Statement",
+      description: "A clear articulation of what the work unit aims to achieve, the problem it solves, or the value it delivers.",
+      relevance: "Aligns efforts with strategic business goals such as enhancing safety (e.g., improved leak detection), increasing operational efficiency (e.g., throughput optimization), reducing costs, or ensuring regulatory compliance.",
+      typeHintAnalogy: "If it has an Objective, it has a defined mission. This attribute indicates a directed effort with an expected outcome, a core requirement for any planned work."
+    },
+    {
+      attributeName: "Scope Definition",
+      description: "Clearly defined boundaries of the work unit, including key deliverables, activities, inclusions, and explicit exclusions.",
+      relevance: "Prevents scope creep in complex engineering projects. Ensures resources are focused. Critical for managing capital projects and maintenance schedules where deviations can have significant safety and financial impact.",
+      typeHintAnalogy: "If it has a Scope, its boundaries are known. This helps determine if a task falls within this unit or another, aiding in proper assignment and preventing redundant efforts."
+    },
+    {
+      attributeName: "Parent / Dependency Link",
+      description: "An optional reference to a higher-level work unit (if it's a sub-project or part of a larger phase) or explicit dependencies on other work units.",
+      relevance: "Visualizes project hierarchies and critical paths. Essential for understanding how delays in one area (e.g., data ingestion) impact downstream activities (e.g., ML model training for predictive maintenance). Helps in coordinated planning across the pipeline network.",
+      typeHintAnalogy: "If it has a Parent/Dependency Link, it exists within a larger ecosystem. This attribute allows the system to treat it as part of a sequence or hierarchy, enabling Gantt chart-like views or dependency graph analysis, similar to how Beam pipelines define PCollection dependencies."
+    },
+    {
+      attributeName: "Status / Lifecycle Stage",
+      description: "The current state of the work unit (e.g., Proposed, Approved, In Progress, Blocked, Testing, Completed, On Hold, Cancelled).",
+      relevance: "Provides real-time visibility into progress across numerous initiatives. Crucial for operational readiness, resource forecasting, and reporting to regulatory bodies or stakeholders on critical infrastructure projects.",
+      typeHintAnalogy: "If it has a Status, its current position in the workflow is known. This allows it to be filtered, prioritized, and processed according to its lifecycle state, much like data elements moving through different stages of a Beam pipeline (e.g., raw, validated, transformed)."
+    },
+    {
+      attributeName: "Key Stakeholders & Accountable Roles",
+      description: "Identification of key individuals, teams, or roles responsible for sponsoring, managing, executing, and approving the work unit.",
+      relevance: "Ensures clear lines of responsibility and communication, vital in an environment with stringent safety protocols and operational accountabilities. Facilitates efficient decision-making and issue resolution.",
+      typeHintAnalogy: "If it has Stakeholders/Accountable Roles, it has defined ownership. This ensures that there are designated points of contact and responsibility, crucial for any managed process."
+    },
+    {
+      attributeName: "Estimated Effort / Resources",
+      description: "An approximation of time, budget, personnel, and key equipment or technology required (can be high-level for phases, more granular for projects).",
+      relevance: "Fundamental for capital planning, operational budgeting, scheduling maintenance windows, and allocating specialized engineering talent or equipment (like inspection tools or specific sensor arrays).",
+      typeHintAnalogy: "If it has Estimated Effort/Resources, its resource footprint can be assessed. This allows for capacity planning and resource allocation, similar to how a Beam runner estimates resources for pipeline execution."
+    },
+    {
+      attributeName: "Success Criteria / Metrics",
+      description: "Measurable criteria that will be used to determine if the work unit has successfully achieved its objective.",
+      relevance: "Ensures that projects deliver tangible benefits, such as quantifiable improvements in leak detection rates, reduction in false positives, adherence to maintenance schedules, or cost savings in operations. Provides a basis for evaluating ROI on technology investments.",
+      typeHintAnalogy: "If it has Success Criteria, its performance is measurable. This defines how the output or outcome of the work unit will be judged, essential for any goal-oriented process."
+    }
+  ],
+  applicationSummary: "This Unified Work Unit Profile (UWUP) allows the web application to use a consistent data structure and UI components for displaying information. Whether drilling down into a specific sub-project (like 'Deploy Corrosion Model v2.1') or viewing an aggregate summary of a major Phase (like 'Phase C: Lakehouse Operational ML'), the application can expect these core attributes to be present (even if some are high-level summaries for Phases). This enables flexible rendering, standardized reporting, and easier cross-project/phase comparisons, effectively treating all manageable work units with a consistent interface, regardless of their granularity."
+};
+
 // DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
     // Initial render
@@ -1229,6 +1291,9 @@ function renderApp() {
         case 'map':
             renderMapView(rootDiv);
             break;
+        case 'characteristics_uwup': // New case for the UWUP view
+            renderCharacteristicsView(rootDiv);
+            break;
         default:
             // This case handles task detail pages
             renderTaskDetailView(rootDiv, currentPage);
@@ -1246,6 +1311,17 @@ function renderMapView(container) {
     // Apply new CSS class for map title, remove Tailwind text color, size. Keep layout/text-align.
     mapTitle.className = 'retro-main-map-title text-center tracking-wider my-8';
     container.appendChild(mapTitle);
+
+    // Add button to navigate to Characteristics View
+    const characteristicsButton = document.createElement('button');
+    characteristicsButton.textContent = 'View Work Unit Profile (UWUP)';
+    // Use a distinct button style or a general one
+    characteristicsButton.className = 'retro-button retro-button-primary block mx-auto mb-8';
+    characteristicsButton.addEventListener('click', () => {
+        currentPage = 'characteristics_uwup';
+        renderApp();
+    });
+    container.appendChild(characteristicsButton);
 
     const mapGrid = document.createElement('div');
     mapGrid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4';
@@ -1485,4 +1561,81 @@ function getTaskById(taskId) {
 // Helper function to find children of a task (will be used by rendering functions)
 function getChildrenTasks(parentId) {
     return projectTasks.filter(task => task.parent_id === parentId);
+}
+
+function renderCharacteristicsView(container) {
+    container.innerHTML = ''; // Clear container
+
+    const wrapper = document.createElement('div');
+    // Using existing panel style for overall container, but can be customized with .uwup-container
+    wrapper.className = 'retro-panel p-4 md:p-8 max-w-4xl mx-auto uwup-container';
+
+    const headline = document.createElement('h1');
+    // Using existing page title style for consistency, can be customized with .uwup-headline
+    headline.className = 'retro-page-title mb-6 text-center tracking-wide uwup-headline';
+    headline.textContent = uwupTemplateData.headline;
+    wrapper.appendChild(headline);
+
+    const introduction = document.createElement('p');
+    // Using existing detail body text style, can be customized with .uwup-introduction
+    introduction.className = 'retro-detail-body-text mb-6 uwup-introduction';
+    introduction.textContent = uwupTemplateData.introduction;
+    wrapper.appendChild(introduction);
+
+    const attributesList = document.createElement('ul');
+    attributesList.className = 'list-none p-0'; // Reset list styling if needed
+
+    uwupTemplateData.attributes.forEach(attr => {
+        const listItem = document.createElement('li');
+        listItem.className = 'mb-6 p-4 retro-sub-task-panel uwup-attribute'; // Using sub-task panel for each attribute block
+
+        const attrName = document.createElement('h3');
+        // Using existing detail section heading, can be customized with .uwup-attribute-name
+        attrName.className = 'retro-detail-section-heading mb-2 uwup-attribute-name';
+        attrName.textContent = attr.attributeName;
+        listItem.appendChild(attrName);
+
+        const sections = [
+            { label: "Description:", content: attr.description, className: 'uwup-attribute-description' },
+            { label: "Relevance for Pipeline Company/Industrial Context:", content: attr.relevance, className: 'uwup-attribute-relevance' },
+            { label: "\"Type Hint\" Analogy:", content: attr.typeHintAnalogy, className: 'uwup-attribute-typehint' }
+        ];
+
+        sections.forEach(section => {
+            if (section.content) {
+                const sectionWrapper = document.createElement('div');
+                sectionWrapper.className = 'mb-2 ' + section.className;
+
+                const labelEl = document.createElement('strong');
+                labelEl.className = 'uwup-attribute-label block'; // Removed text-teal-400, color handled by CSS
+                labelEl.textContent = section.label;
+                sectionWrapper.appendChild(labelEl);
+
+                const contentEl = document.createElement('p');
+                contentEl.className = 'uwup-attribute-content retro-detail-body-text text-sm ml-4'; // Indent content
+                contentEl.textContent = section.content;
+                sectionWrapper.appendChild(contentEl);
+                listItem.appendChild(sectionWrapper);
+            }
+        });
+        attributesList.appendChild(listItem);
+    });
+    wrapper.appendChild(attributesList);
+
+    const applicationSummary = document.createElement('p');
+    // Using existing detail body text style, can be customized with .uwup-summary
+    applicationSummary.className = 'retro-detail-body-text mt-8 uwup-summary';
+    applicationSummary.textContent = uwupTemplateData.applicationSummary;
+    wrapper.appendChild(applicationSummary);
+
+    const backButton = document.createElement('button');
+    backButton.textContent = 'Return to Map';
+    backButton.className = 'retro-button retro-button-secondary block mx-auto mt-8';
+    backButton.addEventListener('click', () => {
+        currentPage = 'map';
+        renderApp();
+    });
+    wrapper.appendChild(backButton);
+
+    container.appendChild(wrapper);
 }

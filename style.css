@@ -287,3 +287,54 @@ h1, h2, h3, h4, h5, h6 {
     text-rendering: optimizeSpeed; /* or optimizeLegibility, geometricPrecision */
     image-rendering: pixelated; /* More general for images but can affect text */
 }
+
+/* UWUP - Unified Work Unit Profile View Styles */
+.uwup-container {
+    /* Uses .retro-panel for base, specific overrides if needed */
+    border-color: var(--color-teal); /* Different border to distinguish from task panels */
+    box-shadow: 6px 6px 0px var(--color-orange);
+}
+
+.uwup-headline {
+    /* Uses .retro-page-title for base, specific overrides if needed */
+    color: var(--color-teal); /* Teal headline for this page */
+    text-shadow: 2px 2px 0px var(--color-burgundy);
+}
+
+.uwup-introduction,
+.uwup-summary {
+    /* Uses .retro-detail-body-text for base */
+    font-size: 1rem; /* Ensure readable size */
+    line-height: 1.7; /* More spacing for blocks of text */
+    color: var(--text-light-grey);
+}
+
+.uwup-attribute {
+    /* Uses .retro-sub-task-panel for base, but with different context */
+    background-color: var(--bg-panel-dark-blue); /* Darker background for attribute sections */
+    border: var(--border-medium) solid var(--color-gold);
+    box-shadow: 3px 3px 0px var(--color-teal);
+}
+
+.uwup-attribute-name {
+    /* Uses .retro-detail-section-heading for base */
+    color: var(--color-gold); /* Gold for attribute names */
+    font-size: 1.25rem; /* Slightly smaller than main section headings */
+    text-shadow: 1px 1px 0px var(--color-orange);
+}
+
+.uwup-attribute-label {
+    font-family: var(--font-body);
+    color: var(--color-electric-blue); /* Bright label color */
+    font-size: 0.875rem;
+    margin-bottom: 0.15rem;
+}
+
+.uwup-attribute-content {
+    /* Uses .retro-detail-body-text, but with specific overrides */
+    font-family: var(--font-body);
+    color: var(--text-light-grey);
+    font-size: 0.875rem; /* Smaller text for these descriptions */
+    line-height: 1.5;
+    /* margin-left is handled by Tailwind in JS (ml-4) */
+}
