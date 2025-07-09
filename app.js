@@ -1072,6 +1072,121 @@ const projectTasks = [
       ],
       software_components: ['Apache Beam', 'Relevant Beam Runner', 'Monitoring Tools (Prometheus, Grafana, Cloud specific monitoring)', 'Logging Systems (ELK Stack, Cloud specific logging)', 'Cost Optimization Tools (e.g., Dataflow Cost Calculator)']
     }
+  },
+  // ... (all previously existing tasks, including the DeltaCat/Ray projects, remain above this line) ...
+
+  // New Top-Level Project: Investigation & Discovery
+  {
+    id: 'project_investigation_discovery',
+    name: 'Project IDP: Investigation & Discovery for Real-Time Pipeline Data',
+    description: 'Comprehensive investigation of Aveeva PI System data, velocity, validation, and exception flood characteristics to inform real-time ML/AI pipeline design.',
+    parent_id: null,
+    type: 'phase',
+    details_page_content: {
+      implementation_details: "Objective: To gain a comprehensive understanding of our existing Aveeva PI System sensor data landscape, characterize its velocity and volume, analyze validation rules, and identify key considerations for building a scalable, real-time data ingestion pipeline capable of supporting ML/AI initiatives, digital twinning, and gracefully handling 'exception floods.' This project is segmented into four distinct investigative phases.",
+      steps: [
+        "Phase 1: Understanding the Aveeva PI System Framework & Data Sources - Understand PI System architecture, sensor inventory, PI templates, and data ingress.",
+        "Phase 2: Data Characteristics Analysis & Velocity Profiling - Analyze data volume, per-sensor/template velocity, exception floods, and message payloads.",
+        "Phase 3: Validation, Data Quality & Existing Usage - Document PI template validation, data quality handling, and current data consumption.",
+        "Phase 4: Planning for 'Exception Floods' & Future State - Define flood scenarios, serialization/schema strategy, and consolidate future pipeline requirements."
+      ],
+      software_components: ['Aveeva PI System (Data Archive, AF, Vision, Integrators)', 'PI System Management Tools (SMT)', 'PI AF SDK', 'PI Web API', 'PI DataLink', 'PI OLEDB', 'Spreadsheet Software', 'Documentation Tools']
+    }
+  },
+
+  // Sub-tasks for Project: Investigation & Discovery
+  {
+    id: 'idp_phase1_pi_system_understanding',
+    name: 'IDP Phase 1: Understanding Aveeva PI System & Data Sources',
+    description: 'Understand PI System architecture, sensor inventory, PI templates, and data ingress mechanisms.',
+    parent_id: 'project_investigation_discovery',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Goal: Understand how data flows from sensors to the PI System, where it's stored, how it's accessed, map the logical structure of sensor data to physical PI points, identify core vs. ancillary sensors, and understand the first mile of data ingestion including potential failure points.",
+      steps: [
+        "Obtain/document PI System architectural diagram (Data Archive, AF, Vision, Integrators, interfaces/connectors).",
+        "Inventory PI Points (tags) and distinct PI Asset Framework (AF) templates used for sensors.",
+        "For major PI templates: identify sensor types, critical attributes/measurements, and typical reporting frequency.",
+        "Identify primary data collection mechanisms feeding PI System (Interfaces, Connectors, OPC UA, Modbus, custom apps, Edge Data Store).",
+        "Investigate existing edge data buffering or local processing mechanisms before data reaches central PI Server."
+      ],
+      deliverables: [
+        "High-level PI system architecture diagram with key components.",
+        "Categorized list/spreadsheet of sensor types, associated PI templates, and reporting characteristics.",
+        "Documentation of primary data ingress pathways and edge processing."
+      ],
+      software_components: ['Aveeva PI System Documentation', 'PI System Management Tools (SMT)', 'PI Asset Framework (AF) configuration tools']
+    }
+  },
+  {
+    id: 'idp_phase2_data_characteristics',
+    name: 'IDP Phase 2: Data Characteristics Analysis & Velocity Profiling',
+    description: 'Analyze overall data volume, per-sensor/template velocity, exception flood patterns, and message payloads.',
+    parent_id: 'project_investigation_discovery',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Goal: Quantify data volumes (average/peak), events per second (average/peak), analyze per-sensor/template velocity focusing on 'report by exception' logic and historical 'exception flood' events. Confirm message payload sizes and structures.",
+      steps: [
+        "Determine average/peak daily compressed data volume (GB/TB) into PI Data Archive (by category/template if possible).",
+        "Determine average/sustained/short-duration peak events per second in PI Data Archive.",
+        "For representative PI Templates (critical & report-by-exception): determine average/max events per minute/second per sensor instance.",
+        "For 'report by exception' sensors: document normal frequency, exception triggers, and max observed frequency during exception floods.",
+        "Identify and analyze historical 'exception flood' events (affected sensors, peak rates).",
+        "Obtain sample raw data payloads for different sensor types entering PI System.",
+        "Analyze typical and maximum message size (bytes/KB) per event for different sensor types."
+      ],
+      deliverables: [
+        "Daily/hourly data volume reports (average/peak) and events per second (average/peak) for last 3-6 months.",
+        "Detailed velocity profiles for key sensor types, including peak rates for exception reporting.",
+        "Examples of historical exception floods with associated metrics.",
+        "Sample payloads and analysis of average/max message sizes."
+      ],
+      software_components: ['PI System Management Tools (SMT)', 'PI AF SDK', 'PI Web API', 'PI Integrator for Business Analytics', 'PI DataLink (Excel Add-in)', 'PI Vision', 'PI OLEDB']
+    }
+  },
+  {
+    id: 'idp_phase3_validation_quality_usage',
+    name: 'IDP Phase 3: Validation, Data Quality & Existing Usage',
+    description: 'Document PI template validation logic, data quality handling, and current PI data consumption patterns.',
+    parent_id: 'project_investigation_discovery',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Goal: Understand existing data quality assurance measures within the PI System and identify current dependencies on PI data to inform requirements for the new pipeline.",
+      steps: [
+        "Document validation rules configured within PI Templates (range checks, deadbands, quality flags, calculations).",
+        "Investigate how data quality issues are currently handled or flagged in PI System (Bad values, questionable flags).",
+        "Identify how PI data is consumed beyond PI Vision (Integrators, custom apps via PI Web API/AF SDK, reporting tools).",
+        "Analyze existing real-time analytics or alerting systems consuming PI data: their latency requirements and volume handling."
+      ],
+      deliverables: [
+        "Documentation of key validation rules and data quality handling in PI System.",
+        "List of current data consumers of PI data and their high-level requirements."
+      ],
+      software_components: ['Aveeva PI System (AF Templates, PI Vision)', 'PI Integrator for Business Analytics', 'PI Web API', 'PI AF SDK']
+    }
+  },
+  {
+    id: 'idp_phase4_exception_planning_future_state',
+    name: 'IDP Phase 4: Planning for Exception Floods & Future State Requirements',
+    description: 'Define exception flood scenarios, data serialization/schema strategy, and consolidate future pipeline requirements.',
+    parent_id: 'project_investigation_discovery',
+    type: 'sub_task',
+    details_page_content: {
+      implementation_details: "Goal: Establish clear, measurable targets for the new ingestion pipeline's performance under stress, optimize data transfer, ensure schema compatibility, and solidify design principles and non-functional requirements for the proposed architecture.",
+      steps: [
+        "Define concrete 'exception flood' scenarios with quantifiable metrics (volume, velocity, duration) based on historical analysis.",
+        "Determine business impacts and desired real-time responses/latency for each flood scenario.",
+        "Propose a standard data serialization format (Avro, Protobuf) for sensor data leaving PI System or new edge ingestion points.",
+        "Outline a strategy for managing schema evolution (e.g., using a schema registry).",
+        "Consolidate specific data volume, velocity, latency, and quality requirements for the new ingestion pipeline to support ML/AI, digital twinning, and event detection across the entire pipeline network."
+      ],
+      deliverables: [
+        "Defined exception flood scenarios with quantitative metrics and latency/action requirements.",
+        "Recommended data serialization format and schema management approach.",
+        "Consolidated list of functional and non-functional requirements for the new data ingestion pipeline."
+      ],
+      software_components: ['Schema Registry (e.g., Confluent Schema Registry - for planning)', 'Data Serialization Libraries (Avro, Protobuf - for planning)']
+    }
   }
 ];
 
