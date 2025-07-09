@@ -1688,6 +1688,16 @@ function renderTaskDetailView(container, taskId) {
     // Apply .retro-panel, keep layout/sizing Tailwind. Remove conflicting bg/border/color.
     detailWrapper.className = 'retro-panel p-4 md:p-8 max-w-4xl mx-auto';
 
+    // Add link to UniTS GCP Details Page if this is the correct task
+    if (task.id === 'project_units_gcp') {
+        const unitsOverviewLink = document.createElement('a');
+        unitsOverviewLink.href = 'units_gcp_details_page.html';
+        unitsOverviewLink.target = '_blank'; // Open in a new tab
+        unitsOverviewLink.textContent = 'View UniTS Project Overview Page';
+        unitsOverviewLink.className = 'retro-button retro-button-primary block mx-auto mb-6 text-center'; // Added text-center
+        detailWrapper.appendChild(unitsOverviewLink);
+    }
+
     const taskTitle = document.createElement('h1');
     // Apply new page title class. Keep text-center, tracking-wide. Remove old color/sizing.
     taskTitle.className = 'retro-page-title mb-6 text-center tracking-wide';
