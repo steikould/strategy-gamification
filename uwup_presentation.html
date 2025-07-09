@@ -3,324 +3,573 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UWUP for Pipeline Digital Transformation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Unified Work Unit Profile (UWUP) - Transforming Pipeline Operations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Color Palette */
+        :root {
+            --primary-color: #005A9C; /* Professional Blue */
+            --accent-color: #00A99D;  /* Vibrant Teal */
+            --text-dark: #212529;    /* Dark Grey for text */
+            --text-light: #F8F9FA;   /* Off-White for text on dark backgrounds */
+            --bg-light: #FFFFFF;     /* White background for page */
+            --bg-medium: #F8F9FA;    /* Light Grey for cards/sections */
+            --border-color: #DEE2E6; /* Subtle border color */
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px; /* Add horizontal padding */
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 700;
+            margin-bottom: 0.75em;
+            color: var(--primary-color);
+        }
+
+        h1 { font-size: 2.8rem; margin-bottom: 0.5em; text-align: center; line-height: 1.2; }
+        h2 { font-size: 2.2rem; margin-top: 2.5em; border-bottom: 3px solid var(--accent-color); padding-bottom: 0.4em; margin-bottom: 1.5em;}
+        h3 { font-size: 1.6rem; color: var(--primary-color); opacity:0.95; margin-bottom: 0.6em;}
+        h4 { font-size: 1.3rem; color: var(--text-dark); margin-bottom: 0.5em; }
+
+        p {
+            margin-bottom: 1.25em;
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 1.25em;
+            padding-left: 10px; /* Add some padding for list items */
+        }
+        li { margin-bottom: 0.6em; }
+
+        strong { font-weight: 700; }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 60px 20px; /* Adjusted padding */
+            text-align: center;
+            margin-bottom: 50px; /* Increased bottom margin */
+            border-radius: 0 0 15px 15px; /* Rounded bottom corners */
+        }
+        .hero-section h1 {
+            color: var(--text-light);
+            font-size: 3rem; /* Slightly adjusted */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .hero-section .subtitle {
+            font-size: 1.4rem; /* Slightly adjusted */
+            color: var(--bg-medium);
+            opacity: 0.9;
+            margin-bottom: 1.5em;
+        }
+        .hero-section .hero-sub-benefit {
+            font-size: 1.15rem; /* Slightly adjusted */
+            color: var(--bg-light);
+            margin-bottom: 2em;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .uwup-core-idea {
+            background-color: rgba(0,0,0,0.15); /* Darker for better contrast on primary */
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid var(--accent-color);
+        }
+        .uwup-core-idea h3 { color: var(--accent-color); }
+        .uwup-core-idea p { font-size: 1.05rem; }
+        .attribute-tags {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        .attribute-tags span {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            padding: 8px 18px; /* Increased padding */
+            border-radius: 25px;
+            font-size: 0.95rem; /* Increased font size */
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* General Section Styling */
+        section {
+            padding: 50px 0; /* Increased vertical padding */
+            margin-bottom: 40px; /* Increased bottom margin */
+        }
+
+        .problem-solution-section, .uwup-in-action-section, .benefits-section, .roadmap-section, .cta-section {
+            padding: 40px 20px;
+            background-color: #fff; /* White background for content sections */
+            margin-bottom: 40px; /* Increased bottom margin */
+            border-radius: 12px; /* Slightly more rounded */
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08); /* Softer, more diffused shadow */
+        }
+
+
+        /* Problem-Solution Section */
+        .problem-solution-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 50px; /* Increased gap */
+        }
+        .problem-column .challenge-card, .solution-column .solution-card {
+            background-color: var(--bg-medium);
+            padding: 30px; /* Increased padding */
+            border-radius: 8px;
+            border-left: 6px solid var(--primary-color); /* Thicker border */
+        }
+        .solution-column .solution-card { border-left-color: var(--accent-color); }
+        .problem-solution-section h3 { margin-bottom: 20px; font-size: 1.5rem; } /* Adjusted h3 */
+        .problem-solution-section ul { list-style-position: outside; padding-left: 20px;}
+
+
+        /* UWUP in Action Section */
+         .uwup-in-action-section h2 { margin-bottom: 1.5em; }
+        .application-card {
+            background-color: var(--bg-medium);
+            padding: 30px; /* Increased padding */
+            border-radius: 8px;
+            margin-bottom: 40px; /* Increased margin */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .application-card h3 { color: var(--primary-color); border-bottom: 2px solid var(--border-color); padding-bottom: 0.6em; font-size: 1.7rem;}
+        .application-card h4 { font-size: 1.2rem; color: var(--text-dark); margin-top: 1.5em; margin-bottom: 0.8em;}
+
+        .workflow-steps, .roadmap-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start; /* Align items to start */
+            align-items: stretch; /* Make items same height */
+            margin: 25px 0;
+            gap: 15px;
+        }
+        .workflow-step, .roadmap-step {
+            background-color: var(--bg-light);
+            padding: 20px; /* Increased padding */
+            border-radius: 6px;
+            text-align: center;
+            flex-grow: 1;
+            flex-basis: 200px; /* Adjusted base width */
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex; /* For vertical centering of content */
+            flex-direction: column;
+            justify-content: center;
+        }
+        .workflow-step strong, .roadmap-step strong { display: block; margin-bottom: 5px; font-size: 1.05em;}
+        .workflow-arrow, .roadmap-arrow {
+            font-size: 1.8rem; /* Adjusted size */
+            color: var(--accent-color);
+            font-weight: bold;
+            padding: 0 15px;
+            align-self: center; /* Center arrow vertically */
+        }
+        .tech-tags { margin: 20px 0; display: flex; flex-wrap: wrap; gap: 10px; }
+        .tech-tags span { background-color: var(--accent-color); color: var(--text-light); padding: 6px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; }
+        .sub-units, .framework-benefits, .agent-network, .multi-agent-details { margin-top: 20px; }
+        .sub-units ul, .framework-benefits ul, .agent-network ul { list-style: disc; padding-left: 20px; }
+        .grid { display: grid; gap: 20px; } /* For internal grids like in multi-agent */
+        /* .grid-cols-1 { grid-template-columns: 1fr; } */ /* Already default for block elements */
+        .md-grid-cols-2 { grid-template-columns: 1fr; } /* Default to 1 column, media query will change */
+
+
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
+            gap: 30px; /* Increased gap */
+            margin-top: 25px;
+        }
+        .benefit-card {
+            background-color: var(--bg-medium);
+            padding: 30px; /* Increased padding */
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .benefit-card h3 { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 0.8em;} /* Adjusted h3 */
+        .benefit-card p { font-size: 1rem; }
+         .benefit-card h3::before {
+            display: block;
+            font-size: 2.2rem; /* Adjusted icon size */
+            margin-bottom: 12px;
+            color: var(--accent-color);
+        }
+        .benefit-card:nth-child(1) h3::before { content: '🎯'; }
+        .benefit-card:nth-child(2) h3::before { content: '📊'; }
+        .benefit-card:nth-child(3) h3::before { content: '🔄'; }
+        .benefit-card:nth-child(4) h3::before { content: '💰'; }
+        .benefit-card:nth-child(5) h3::before { content: '⚡'; }
+        .benefit-card:nth-child(6) h3::before { content: '📈'; }
+
+
+        /* Roadmap Section */
+        .roadmap-section .roadmap-step h4 { font-size: 1.15rem; color: var(--primary-color); margin-bottom: 0.5em;} /* Adjusted h4 */
+        .roadmap-section .roadmap-step p { font-size: 0.95rem; }
+        .roadmap-roi { text-align: center; margin-top: 35px; }
+        .roadmap-roi .roi-metric {
+            font-size: 2.2rem; /* Adjusted size */
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 0.5em;
+            background-color: var(--bg-medium);
+            padding: 10px 20px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        /* CTA Section */
+        .cta-section { text-align: center; background-color: var(--primary-color); color: var(--text-light); padding: 50px 20px; border-radius: 12px;}
+        .cta-section h2 { color: var(--text-light); border-bottom-color: var(--accent-color); font-size: 2rem; }
+        .cta-section p { font-size: 1.1rem; max-width: 700px; margin-left:auto; margin-right:auto;}
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px; /* Increased gap */
+            margin: 35px 0;
+        }
+        .cta-card {
+            background-color: rgba(255,255,255,0.15); /* Slightly more opaque */
+            padding: 30px; /* Increased padding */
+            border-radius: 8px;
+            flex-basis: 320px;
+            flex-grow: 1;
+            border: 1px solid var(--accent-color);
+        }
+        .cta-card h3 { color: var(--accent-color); font-size: 1.5rem; } /* Adjusted h3 */
+        .cta-button {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            padding: 15px 30px; /* Increased padding */
+            border: none;
+            border-radius: 6px; /* Slightly more rounded */
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .cta-button:hover { background-color: #00877A; transform: translateY(-2px); }
+        .final-message { font-size: 1.4rem; margin-top: 35px; font-weight: bold; }
+        .modern-highlight { /* General highlight for light backgrounds */
+            background-color: var(--accent-color); /* Teal background */
+            color: var(--text-light); /* White text */
+            padding: 0.2em 0.5em; /* Adjust padding */
+            border-radius: 4px;
+            font-weight: bold;
+        }
+         .hero-section .modern-highlight { /* Specific for hero section */
+            background-color: rgba(255,255,255,0.9); /* Brighter, more opaque white */
+            color: var(--primary-color); /* Dark blue text */
+            padding: 0.2em 0.5em;
+            border-radius: 4px;
+        }
+
+
+        /* Footer */
+        .page-footer {
+            text-align: center;
+            padding: 40px 20px; /* Increased padding */
+            margin-top: 50px; /* Increased margin */
+            background-color: var(--text-dark);
+        }
+        .footer-button {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            padding: 12px 25px; /* Adjusted padding */
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        .footer-button:hover { background-color: #00877A; }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .problem-solution-section { grid-template-columns: 1fr 1fr; }
+            .md-grid-cols-2 { grid-template-columns: 1fr 1fr; } /* Apply 2 columns on md and up */
+        }
+        @media (max-width: 767px) {
+             h1 { font-size: 2rem; }
+             .hero-section h1 { font-size: 2.3rem; }
+             h2 { font-size: 1.7rem; }
+             h3 { font-size: 1.3rem; }
+             .workflow-steps, .roadmap-steps { flex-direction: column; align-items: stretch;}
+             .workflow-arrow, .roadmap-arrow {
+                display: block; /* Show arrows as block for vertical flow */
+                margin: 10px auto; /* Center arrows */
+                transform: rotate(90deg); /* Point down */
+             }
+             .workflow-step, .roadmap-step { margin-bottom: 15px; width: 100%;}
+             .cta-card { flex-basis: 100%; }
+        }
+         @media (min-width: 992px) { /* Larger desktop adjustments */
+            .benefits-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+    </style>
 </head>
 <body>
-    <div class="retro-panel max-w-5xl mx-auto p-4 md:p-8">
+    <main class="page-container">
 
-        <!-- Slide 1: Title -->
-        <section class="text-center mb-12 p-6 retro-panel">
-            <div class="mb-4">
-                <span class="text-5xl">🏗️</span> <!-- Emoji as icon -->
-                <h1 class="retro-page-title mt-2">Unified Work Unit Profile (UWUP)</h1>
-                <p class="retro-detail-body-text text-lg mt-2">Transforming Pipeline Operations Through Digital Excellence</p>
-            </div>
-            <div class="retro-detail-body-text text-lg">
-                <p>Streamlining <span class="retro-highlight">Cloud Migration</span>, <span class="retro-highlight">MQTT Integration</span>, and <span class="retro-highlight">AI/ML Automation</span> for Industrial Pipeline Operations</p>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <span class="hero-icon" style="font-size: 3rem; display: block; margin-bottom: 0.5em;">🏗️</span>
+                <h1>Unified Work Unit Profile (UWUP)</h1>
+                <p class="subtitle">Transforming Pipeline Operations Through Digital Excellence</p>
+                <p class="hero-sub-benefit">Streamlining <span class="modern-highlight">Cloud Migration</span>, <span class="modern-highlight">MQTT Integration</span>, and <span class="modern-highlight">AI/ML Automation</span> for Industrial Pipeline Operations.</p>
+                <div class="uwup-core-idea">
+                    <h3>Core Concept: A "Type Hint" for Work Management</h3>
+                    <p>The Unified Work Unit Profile (UWUP) is a standardized framework. It ensures every initiative, from installing a single sensor to implementing company-wide ML systems, is treated as a consistently managed work unit. Just as programming languages use type hints for interface consistency, UWUP ensures every work unit, regardless of size or complexity, shares essential attributes for tracking, managing, and coordinating across your pipeline network.</p>
+                    <div class="attribute-tags">
+                        <span>Unique ID</span><span>Clear Objectives</span><span>Defined Scope</span><span>Dependencies</span><span>Status Tracking</span><span>Stakeholder Roles</span><span>Resource Estimation</span><span>Success Metrics</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Slide 2: The Challenge -->
-        <section class="mb-12 p-6 retro-panel">
-            <h2 class="retro-detail-section-heading">The Digital Transformation Challenge</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                <div class="retro-sub-task-panel p-4">
-                    <h3 class="retro-sub-task-heading">Current State Challenges</h3>
-                    <div class="challenge-item">
-                        <strong>Fragmented Systems:</strong> Legacy SCADA, isolated databases, manual processes
-                    </div>
-                    <div class="challenge-item">
-                        <strong>Sensor Data Chaos:</strong> Thousands of sensors with inconsistent data formats
-                    </div>
-                    <div class="challenge-item">
-                        <strong>Reactive Maintenance:</strong> Costly repairs after failures occur
-                    </div>
-                    <div class="challenge-item">
-                        <strong>Compliance Complexity:</strong> Manual tracking of regulatory requirements
-                    </div>
-                </div>
-                <div class="retro-sub-task-panel p-4">
-                    <h3 class="retro-sub-task-heading">Transformation Goals</h3>
-                    <div class="solution-item">
-                        <strong>Cloud-First Architecture:</strong> Scalable, secure, and integrated systems
-                    </div>
-                    <div class="solution-item">
-                        <strong>MQTT Standardization:</strong> Real-time, standardized sensor communication
-                    </div>
-                    <div class="solution-item">
-                        <strong>AI/ML Automation:</strong> Predictive maintenance and intelligent operations
-                    </div>
-                    <div class="solution-item">
-                        <strong>Multi-Agent Workflows:</strong> Autonomous, coordinated system responses
-                    </div>
+        <!-- Problem-Solution Narrative -->
+        <section class="problem-solution-section">
+            <div class="problem-column">
+                <div class="challenge-card">
+                    <h3>Current State Challenges</h3>
+                    <ul>
+                        <li><strong>Fragmented Systems:</strong> Legacy SCADA, isolated databases, manual processes.</li>
+                        <li><strong>Sensor Data Chaos:</strong> Thousands of sensors with inconsistent data formats.</li>
+                        <li><strong>Reactive Maintenance:</strong> Costly repairs after failures occur.</li>
+                        <li><strong>Compliance Complexity:</strong> Manual tracking of regulatory requirements.</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-
-        <!-- Slide 3: What is UWUP -->
-        <section class="mb-12 p-6 retro-panel">
-            <h2 class="retro-detail-section-heading">What is UWUP?</h2>
-            <div class="retro-detail-body-text">
-                <p>The <span class="retro-highlight">Unified Work Unit Profile</span> is a standardized framework that treats every initiative—from installing a single sensor to implementing company-wide ML systems—as a consistently managed work unit.</p>
-            </div>
-            <div class="retro-sub-task-panel p-4 my-4">
-                <h3 class="retro-sub-task-heading">Core Concept: "Type Hint" for Work Management</h3>
-                <p class="retro-detail-body-text">Just as programming languages use type hints to ensure consistent interfaces, UWUP ensures every work unit—regardless of size or complexity—has the same essential attributes for tracking, managing, and coordinating across your pipeline network.</p>
-            </div>
-            <div class="flex flex-wrap gap-2 my-4">
-                <span class="retro-button retro-button-details text-xs">Unique ID</span>
-                <span class="retro-button retro-button-details text-xs">Clear Objectives</span>
-                <span class="retro-button retro-button-details text-xs">Defined Scope</span>
-                <span class="retro-button retro-button-details text-xs">Dependencies</span>
-                <span class="retro-button retro-button-details text-xs">Status Tracking</span>
-                <span class="retro-button retro-button-details text-xs">Stakeholder Roles</span>
-                <span class="retro-button retro-button-details text-xs">Resource Estimation</span>
-                <span class="retro-button retro-button-details text-xs">Success Metrics</span>
-            </div>
-        </div>
-
-        <!-- Slide 4: Cloud Migration Example -->
-        <section class="mb-12 p-6 retro-panel">
-            <h2 class="retro-detail-section-heading">Example: Cloud Migration Initiative</h2>
-            <div class="retro-sub-task-panel p-4 my-4">
-                <h3 class="retro-sub-task-heading">UID: CLOUD_MIGRATION_2024</h3>
-                <p class="retro-detail-body-text"><strong>Objective:</strong> Migrate critical pipeline monitoring systems to Google Cloud Platform with 99.9% uptime</p>
-                <p class="retro-detail-body-text"><strong>Scope:</strong> SCADA data, sensor networks, compliance reporting systems</p>
-                <p class="retro-detail-body-text"><strong>Dependencies:</strong> Network infrastructure upgrades, staff training, security certification</p>
-            </div>
-            <div class="flex flex-col md:flex-row justify-around items-center my-4 space-y-4 md:space-y-0 md:space-x-2">
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Phase 1</strong><br>
-                    Infrastructure Setup<br>
-                    <div class="retro-highlight text-lg">4 weeks</div>
+            <div class="solution-column">
+                <div class="solution-card">
+                    <h3>Introducing UWUP: The Solution & Transformation Goals</h3>
+                     <p>The <span class="modern-highlight">Unified Work Unit Profile (UWUP)</span> is a standardized framework that treats every initiative—from installing a single sensor to implementing company-wide ML systems—as a consistently managed work unit.</p>
+                    <ul>
+                        <li><strong>Cloud-First Architecture:</strong> Enable scalable, secure, and integrated systems.</li>
+                        <li><strong>MQTT Standardization:</strong> Facilitate real-time, standardized sensor communication.</li>
+                        <li><strong>AI/ML Automation:</strong> Drive predictive maintenance and intelligent operations.</li>
+                        <li><strong>Multi-Agent Workflows:</strong> Support autonomous, coordinated system responses.</li>
+                    </ul>
                 </div>
-                <div class="text-2xl font-retro text-yellow-400 hidden md:block">→</div>
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Phase 2</strong><br>
-                    Data Migration<br>
-                    <div class="retro-highlight text-lg">8 weeks</div>
-                </div>
-                <div class="text-2xl font-retro text-yellow-400 hidden md:block">→</div>
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Phase 3</strong><br>
-                    System Integration<br>
-                    <div class="retro-highlight text-lg">6 weeks</div>
-                </div>
-                <div class="text-2xl font-retro text-yellow-400 hidden md:block">→</div>
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Phase 4</strong><br>
-                    Go-Live & Support<br>
-                    <div class="retro-highlight text-lg">2 weeks</div>
-                </div>
-            </div>
-            <div class="retro-detail-body-text">
-                <strong>Success Metrics:</strong> Zero data loss, 50% reduction in system response time, 30% cost savings on infrastructure
-            </div>
-        </div>
-
-        <!-- Slide 5: MQTT Integration Example -->
-        <section class="mb-12 p-6 retro-panel">
-            <h2 class="retro-detail-section-heading">Example: MQTT Sensor Standardization</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                <div class="retro-sub-task-panel p-4">
-                    <h3 class="retro-sub-task-heading">Work Unit: MQTT_SENSOR_ROLLOUT</h3>
-                    <p class="retro-detail-body-text"><strong>Objective:</strong> Standardize 15,000+ sensors across 500 miles of pipeline using MQTT protocol</p>
-                    <div class="retro-sub-task-panel bg-opacity-50 p-3 my-2">
-                        <strong class="retro-highlight">Sub-Units Include:</strong>
-                        <ul class="list-disc list-inside retro-detail-list pl-4 mt-1">
-                            <li>Pressure sensor migration (Stations 1-50)</li>
-                            <li>Temperature sensor upgrade (Compressor facilities)</li>
-                            <li>Flow rate sensor deployment (Critical segments)</li>
-                            <li>Vibration sensor installation (Pump stations)</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="retro-sub-task-panel p-4">
-                    <h3 class="retro-sub-task-heading">Benefits of UWUP Framework</h3>
-                    <div class="solution-item">
-                        <strong>Unified Tracking:</strong> Single dashboard for all sensor deployments
-                    </div>
-                    <div class="solution-item">
-                        <strong>Dependency Management:</strong> Network readiness before sensor installation
-                    </div>
-                    <div class="solution-item">
-                        <strong>Resource Optimization:</strong> Coordinate technician schedules and equipment
-                    </div>
-                    <div class="solution-item">
-                        <strong>Risk Mitigation:</strong> Identify operational disruption windows
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 6: ML/AI Automation Example -->
-        <section class="mb-12 p-6 retro-panel">
-            <h2 class="retro-detail-section-heading">Example: AI/ML Predictive Maintenance</h2>
-            <div class="retro-sub-task-panel p-4 my-4">
-                <h3 class="retro-sub-task-heading">UID: ML_PREDICTIVE_MAINTENANCE_V1</h3>
-                <p class="retro-detail-body-text"><strong>Objective:</strong> Implement machine learning models to predict equipment failures 72 hours in advance</p>
-                <div class="flex flex-wrap gap-2 my-2">
-                    <span class="retro-button retro-button-details text-xs">UniTS Time Series</span>
-                    <span class="retro-button retro-button-details text-xs">Anomaly Detection</span>
-                    <span class="retro-button retro-button-details text-xs">Vibration Analysis</span>
-                    <span class="retro-button retro-button-details text-xs">Thermal Imaging</span>
-                </div>
-            </div>
-            <div class="flex flex-col md:flex-row justify-around items-center my-4 space-y-4 md:space-y-0 md:space-x-2">
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Data Collection</strong><br>
-                    MQTT sensors feed real-time data to cloud
-                </div>
-                <div class="text-2xl font-retro text-yellow-400 hidden md:block">→</div>
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Model Training</strong><br>
-                    Historical failure patterns analysis
-                </div>
-                <div class="text-2xl font-retro text-yellow-400 hidden md:block">→</div>
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Deployment</strong><br>
-                    Real-time prediction engine
-                </div>
-                <div class="text-2xl font-retro text-yellow-400 hidden md:block">→</div>
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Action</strong><br>
-                    Automated work order generation
-                </div>
-            </div>
-            <div class="retro-detail-body-text">
-                <strong>Success Metrics:</strong> 80% reduction in unplanned downtime, 60% decrease in maintenance costs, 95% prediction accuracy
-            </div>
-        </div>
-
-        <!-- Slide 7: Multi-Agent Workflows -->
-        <section class="mb-12 p-6 retro-panel">
-            <h2 class="retro-detail-section-heading">Example: Multi-Agent Workflow System</h2>
-            <div class="retro-detail-body-text">
-                <p>Autonomous agents that coordinate responses to pipeline events, from leak detection to emergency response.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                <div class="retro-sub-task-panel p-4">
-                    <h3 class="retro-sub-task-heading">Agent Network</h3>
-                    <div class="retro-sub-task-panel bg-opacity-50 p-3 my-2">
-                        <strong>Detection Agent:</strong> Analyzes sensor data for anomalies
-                    </div>
-                    <div class="retro-sub-task-panel bg-opacity-50 p-3 my-2">
-                        <strong>Assessment Agent:</strong> Determines severity and impact
-                    </div>
-                    <div class="retro-sub-task-panel bg-opacity-50 p-3 my-2">
-                        <strong>Response Agent:</strong> Coordinates repair teams and resources
-                    </div>
-                    <div class="retro-sub-task-panel bg-opacity-50 p-3 my-2">
-                        <strong>Compliance Agent:</strong> Ensures regulatory reporting
-                    </div>
-                </div>
-                <div class="retro-sub-task-panel p-4">
-                    <h3 class="retro-sub-task-heading">UWUP Work Unit: MULTI_AGENT_LEAK_RESPONSE</h3>
-                    <p class="retro-detail-body-text"><strong>Scope:</strong> Autonomous response to pressure drop events</p>
-                    <p class="retro-detail-body-text"><strong>Dependencies:</strong> ML models, MQTT sensors, cloud infrastructure</p>
-                    <p class="retro-detail-body-text"><strong>Success Criteria:</strong>
-                        <ul class="list-disc list-inside retro-detail-list pl-4 mt-1">
-                            <li>Response time < 5 minutes</li>
-                            <li>95% accuracy in leak classification</li>
-                            <li>Automatic regulatory notifications</li>
-                        </ul>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 8: Benefits for Pipeline Operations -->
-        <section class="mb-12 p-6 retro-panel">
-            <h2 class="retro-detail-section-heading">Benefits for Pipeline Operations</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                <div class="retro-sub-task-panel p-3">
-                    <h3 class="retro-sub-task-heading">🎯 Strategic Alignment</h3>
-                    <p class="retro-detail-body-text text-sm">Every technology initiative directly ties to operational goals: safety, efficiency, compliance</p>
-                </div>
-                <div class="retro-sub-task-panel p-3">
-                    <h3 class="retro-sub-task-heading">📊 Unified Visibility</h3>
-                    <p class="retro-detail-body-text text-sm">Single dashboard tracks everything from sensor installations to ML model deployments</p>
-                </div>
-                <div class="retro-sub-task-panel p-3">
-                    <h3 class="retro-sub-task-heading">🔄 Dependency Management</h3>
-                    <p class="retro-detail-body-text text-sm">Understand how cloud migration affects MQTT rollout affects ML model training</p>
-                </div>
-                <div class="retro-sub-task-panel p-3">
-                    <h3 class="retro-sub-task-heading">💰 Resource Optimization</h3>
-                    <p class="retro-detail-body-text text-sm">Coordinate technicians, equipment, and downtime windows across multiple initiatives</p>
-                </div>
-                <div class="retro-sub-task-panel p-3">
-                    <h3 class="retro-sub-task-heading">⚡ Risk Mitigation</h3>
-                    <p class="retro-detail-body-text text-sm">Identify conflicts between maintenance schedules and technology deployments</p>
-                </div>
-                <div class="retro-sub-task-panel p-3">
-                    <h3 class="retro-sub-task-heading">📈 Performance Tracking</h3>
-                    <p class="retro-detail-body-text text-sm">Measure ROI on technology investments with consistent success metrics</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 9: Implementation Roadmap -->
-        <section class="mb-12 p-6 retro-panel">
-            <h2 class="retro-detail-section-heading">Implementation Roadmap</h2>
-            <div class="flex flex-col md:flex-row justify-around items-center my-4 space-y-4 md:space-y-0 md:space-x-2">
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Month 1-2</strong><br>
-                    Framework Setup<br>
-                    <small class="retro-detail-body-text text-xs">Define templates, train teams</small>
-                </div>
-                <div class="text-2xl font-retro text-yellow-400 hidden md:block">→</div>
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Month 3-6</strong><br>
-                    Pilot Projects<br>
-                    <small class="retro-detail-body-text text-xs">Cloud migration, MQTT rollout</small>
-                </div>
-                <div class="text-2xl font-retro text-yellow-400 hidden md:block">→</div>
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Month 7-12</strong><br>
-                    Full Deployment<br>
-                    <small class="retro-detail-body-text text-xs">ML systems, multi-agent workflows</small>
-                </div>
-                <div class="text-2xl font-retro text-yellow-400 hidden md:block">→</div>
-                <div class="retro-sub-task-panel p-3 text-center">
-                    <strong>Ongoing</strong><br>
-                    Continuous Improvement<br>
-                    <small class="retro-detail-body-text text-xs">Optimize, expand, evolve</small>
-                </div>
-            </div>
-            <div class="retro-detail-body-text text-center mt-6">
-                <div class="retro-highlight text-2xl p-2">Expected ROI: 300%</div>
-                <p class="mt-2">Through reduced downtime, improved efficiency, and accelerated digital transformation</p>
-            </div>
-        </div>
-
-        <!-- Slide 10: Conclusion -->
-        <section class="mb-12 p-6 retro-panel text-center">
-            <h2 class="retro-detail-section-heading">Transform Your Pipeline Operations</h2>
-            <div class="retro-detail-body-text">
-                <p>UWUP provides the structured framework needed to successfully navigate your digital transformation journey while maintaining operational excellence.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                <div class="retro-sub-task-panel p-4">
-                    <h3 class="retro-sub-task-heading">🚀 Ready to Start?</h3>
-                    <p class="retro-detail-body-text text-sm">Begin with your most critical initiative—whether it's cloud migration, sensor standardization, or ML implementation—and apply the UWUP framework to ensure success.</p>
-                </div>
-                <div class="retro-sub-task-panel p-4">
-                    <h3 class="retro-sub-task-heading">📞 Next Steps</h3>
-                    <p class="retro-detail-body-text text-sm">Schedule a workshop to customize UWUP for your specific pipeline operations and technology roadmap.</p>
-                </div>
-            </div>
-            <div class="retro-detail-body-text text-xl mt-8">
-                <span class="retro-highlight p-2">Building the Future of Pipeline Operations</span>
             </div>
         </section>
 
-        <div class="text-center mt-8 mb-4">
-            <a href="index.html" class="retro-button retro-button-secondary">Back to Main Map</a>
-        </div>
-    </div>
-    <!-- Removed slide navigation script and fixed controls -->
+        <!-- UWUP in Action / Key Applications Section -->
+        <section class="uwup-in-action-section">
+            <h2>UWUP in Action: Key Applications</h2>
+
+            <article class="application-card">
+                <h3>Cloud Migration Initiative</h3>
+                <p><strong>UID:</strong> CLOUD_MIGRATION_2024</p>
+                <p><strong>Objective:</strong> Migrate critical pipeline monitoring systems to Google Cloud Platform with 99.9% uptime.</p>
+                <p><strong>Scope:</strong> SCADA data, sensor networks, compliance reporting systems.</p>
+                <p><strong>Dependencies:</strong> Network infrastructure upgrades, staff training, security certification.</p>
+                <h4>Workflow:</h4>
+                <div class="workflow-steps">
+                    <div class="workflow-step"><strong>Phase 1:</strong> Infrastructure Setup (4 weeks)</div>
+                    <div class="workflow-arrow">➔</div>
+                    <div class="workflow-step"><strong>Phase 2:</strong> Data Migration (8 weeks)</div>
+                    <div class="workflow-arrow">➔</div>
+                    <div class="workflow-step"><strong>Phase 3:</strong> System Integration (6 weeks)</div>
+                    <div class="workflow-arrow">➔</div>
+                    <div class="workflow-step"><strong>Phase 4:</strong> Go-Live & Support (2 weeks)</div>
+                </div>
+                <p><strong>Success Metrics:</strong> Zero data loss, 50% reduction in system response time, 30% cost savings.</p>
+            </article>
+
+            <article class="application-card">
+                <h3>MQTT Sensor Standardization</h3>
+                 <p><strong>Work Unit:</strong> MQTT_SENSOR_ROLLOUT</p>
+                <p><strong>Objective:</strong> Standardize 15,000+ sensors across 500 miles of pipeline using MQTT protocol.</p>
+                <div class="sub-units">
+                    <h4>Sub-Units Include:</h4>
+                    <ul>
+                        <li>Pressure sensor migration (Stations 1-50)</li>
+                        <li>Temperature sensor upgrade (Compressor facilities)</li>
+                        <li>Flow rate sensor deployment (Critical segments)</li>
+                        <li>Vibration sensor installation (Pump stations)</li>
+                    </ul>
+                </div>
+                <div class="framework-benefits">
+                    <h4>Benefits of UWUP Framework:</h4>
+                    <ul>
+                        <li>Unified Tracking: Single dashboard for all sensor deployments.</li>
+                        <li>Dependency Management: Network readiness before sensor installation.</li>
+                        <li>Resource Optimization: Coordinate technician schedules and equipment.</li>
+                        <li>Risk Mitigation: Identify operational disruption windows.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="application-card">
+                <h3>AI/ML Predictive Maintenance</h3>
+                <p><strong>UID:</strong> ML_PREDICTIVE_MAINTENANCE_V1</p>
+                <p><strong>Objective:</strong> Implement machine learning models to predict equipment failures 72 hours in advance.</p>
+                <h4>Key Technologies:</h4>
+                <div class="tech-tags">
+                    <span>UniTS Time Series</span><span>Anomaly Detection</span><span>Vibration Analysis</span><span>Thermal Imaging</span>
+                </div>
+                <h4>Workflow:</h4>
+                <div class="workflow-steps">
+                    <div class="workflow-step">Data Collection (MQTT to Cloud)</div>
+                    <div class="workflow-arrow">➔</div>
+                    <div class="workflow-step">Model Training (Historical Patterns)</div>
+                    <div class="workflow-arrow">➔</div>
+                    <div class="workflow-step">Deployment (Real-time Engine)</div>
+                    <div class="workflow-arrow">➔</div>
+                    <div class="workflow-step">Action (Automated Work Orders)</div>
+                </div>
+                <p><strong>Success Metrics:</strong> 80% reduction in unplanned downtime, 60% decrease in maintenance costs, 95% prediction accuracy.</p>
+            </article>
+
+            <article class="application-card">
+                <h3>Multi-Agent Workflow System</h3>
+                <p>Autonomous agents coordinating responses to pipeline events, from leak detection to emergency response.</p>
+                <div class="grid md-grid-cols-2 gap-4">
+                    <div class="agent-network">
+                        <h4>Agent Network:</h4>
+                        <ul>
+                            <li>Detection Agent: Analyzes sensor data.</li>
+                            <li>Assessment Agent: Determines severity.</li>
+                            <li>Response Agent: Coordinates repairs.</li>
+                            <li>Compliance Agent: Ensures reporting.</li>
+                        </ul>
+                    </div>
+                    <div class="multi-agent-details">
+                         <h4>UWUP Work Unit: MULTI_AGENT_LEAK_RESPONSE</h4>
+                         <p><strong>Scope:</strong> Autonomous response to pressure drop events.</p>
+                         <p><strong>Dependencies:</strong> ML models, MQTT sensors, cloud infrastructure.</p>
+                         <p><strong>Success Criteria:</strong> Response time < 5 mins, 95% leak classification accuracy, auto regulatory notifications.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="benefits-section">
+            <h2>Key Benefits for Pipeline Operations</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>🎯 Strategic Alignment</h3>
+                    <p>Every technology initiative directly ties to operational goals: safety, efficiency, compliance.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>📊 Unified Visibility</h3>
+                    <p>Single dashboard tracks everything from sensor installations to ML model deployments.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>🔄 Dependency Management</h3>
+                    <p>Understand how cloud migration affects MQTT rollout and ML model training.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>💰 Resource Optimization</h3>
+                    <p>Coordinate technicians, equipment, and downtime windows across multiple initiatives.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>⚡ Risk Mitigation</h3>
+                    <p>Identify conflicts between maintenance schedules and technology deployments.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>📈 Performance Tracking</h3>
+                    <p>Measure ROI on technology investments with consistent success metrics.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section -->
+        <section class="roadmap-section">
+            <h2>Implementation Roadmap</h2>
+            <div class="roadmap-steps">
+                <div class="roadmap-step">
+                    <h4>Month 1-2: Framework Setup</h4>
+                    <p>Define templates, train teams.</p>
+                </div>
+                <div class="roadmap-arrow">➔</div>
+                <div class="roadmap-step">
+                    <h4>Month 3-6: Pilot Projects</h4>
+                    <p>Cloud migration, MQTT rollout.</p>
+                </div>
+                <div class="roadmap-arrow">➔</div>
+                <div class="roadmap-step">
+                    <h4>Month 7-12: Full Deployment</h4>
+                    <p>ML systems, multi-agent workflows.</p>
+                </div>
+                <div class="roadmap-arrow">➔</div>
+                <div class="roadmap-step">
+                    <h4>Ongoing: Continuous Improvement</h4>
+                    <p>Optimize, expand, evolve.</p>
+                </div>
+            </div>
+            <div class="roadmap-roi">
+                <p class="roi-metric">Expected ROI: 300%</p>
+                <p>Through reduced downtime, improved efficiency, and accelerated digital transformation.</p>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section">
+            <h2>Transform Your Pipeline Operations with UWUP</h2>
+            <p>UWUP provides the structured framework needed to successfully navigate your digital transformation journey while maintaining operational excellence.</p>
+            <div class="cta-buttons">
+                <div class="cta-card">
+                    <h3>🚀 Ready to Start?</h3>
+                    <p>Begin with your most critical initiative and apply the UWUP framework to ensure success.</p>
+                    <a href="#contact" class="cta-button">Learn More</a>
+                </div>
+                <div class="cta-card">
+                    <h3>📞 Next Steps</h3>
+                    <p>Schedule a workshop to customize UWUP for your specific pipeline operations and technology roadmap.</p>
+                    <a href="#contact" class="cta-button">Schedule Workshop</a>
+                </div>
+            </div>
+            <p class="final-message"><span class="modern-highlight">Building the Future of Pipeline Operations</span></p>
+        </section>
+
+        <footer class="page-footer">
+            <a href="index.html" class="footer-button">Back to Main Project Map</a>
+        </footer>
+    </main>
 </body>
 </html>
