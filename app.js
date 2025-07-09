@@ -1802,6 +1802,14 @@ function renderCharacteristicsView(container) {
     // Using existing panel style for overall container, but can be customized with .uwup-container
     wrapper.className = 'retro-panel p-4 md:p-8 max-w-4xl mx-auto uwup-container';
 
+    // Add link to UWUP Presentation Page
+    const uwupPresentationLink = document.createElement('a');
+    uwupPresentationLink.href = 'uwup_presentation.html';
+    uwupPresentationLink.target = '_blank'; // Open in a new tab
+    uwupPresentationLink.textContent = 'View UWUP Presentation';
+    uwupPresentationLink.className = 'retro-button retro-button-primary block mx-auto mb-6 text-center';
+    wrapper.appendChild(uwupPresentationLink);
+
     const headline = document.createElement('h1');
     // Using existing page title style for consistency, can be customized with .uwup-headline
     headline.className = 'retro-page-title mb-6 text-center tracking-wide uwup-headline';
